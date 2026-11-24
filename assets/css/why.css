@@ -1,0 +1,98 @@
+/* Why Invensa options 6 and 7 in place on the homepage proof (hero-why6.html, hero-why7.html), on the site's tokens
+   and type scale: intro h3, card word h3, row word h2, promises lead, audience label. Proof only until Luke picks one. */
+/* ---------- shared by 6 and 7 ---------- */
+:root{--edge:max(var(--gutter),calc((100% - var(--max)) / 2))}
+/* the intro takes the site's h3 style (serif, 28 to 42px): Rogo's scroller opens with a serif title too, and 30px Red Hat Display was off the type scale */
+.lead2{margin:0;font-family:var(--serif);font-weight:var(--serif-wght);font-size:var(--fs-h3);line-height:1.1;letter-spacing:-.018em;color:#fff;text-wrap:balance}
+.lead2 br{display:none} @media (min-width:700px){.lead2 br{display:inline}}
+.grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.22;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---------- 6: horizontal scroller (Rogo, "How firms work with Rogo") ---------- */
+.o6{overflow:clip}
+.o6__head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px}
+.o6__nav{display:flex;gap:10px;flex:none}
+.o6__btn{width:48px;height:48px;border-radius:var(--radius);border:0;padding:0;display:grid;place-items:center;cursor:pointer;color:#fff;background:rgba(255,255,255,.09);transition:background-color .5s var(--ease),opacity .5s var(--ease)}
+.o6__btn:hover{background:rgba(255,255,255,.16)}
+.o6__btn:focus-visible{outline:2px solid var(--tint);outline-offset:3px}
+.o6__btn:disabled{opacity:.32;cursor:default;background:rgba(255,255,255,.09)}
+.o6__btn svg{width:20px;height:20px}
+.o6__track{margin-top:clamp(48px,5.6vw,80px);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--edge);scrollbar-width:none;cursor:grab}
+.o6__track::-webkit-scrollbar{display:none}
+.o6__track:focus-visible{outline:2px solid var(--tint);outline-offset:-2px}
+.o6__track.is-drag{scroll-snap-type:none;cursor:grabbing;user-select:none}
+.o6__list{list-style:none;margin:0;padding:0 var(--edge);display:flex;gap:var(--col-gap);width:max-content}
+.card{position:relative;flex:none;width:clamp(296px,62vw,880px);aspect-ratio:16/10;border-radius:var(--radius);overflow:clip;scroll-snap-align:start;background:var(--media-dark);color:#fff}
+.card__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.001);transition:transform 1.8s var(--ease);-webkit-user-drag:none;user-select:none}
+.card:hover .card__img{transform:scale(1.035)}
+/* full-colour photos since 24 Nov (Luke: "keep this sections images full colour on both versions"), so the scrim does
+   the work the duotone used to: eased aubergine at the top (audience line) and bottom (word and sentence), the middle of
+   the photo clear. Measured against the brightest 5% of each (graded) photo behind the type: 5.1:1 or better at every
+   card size. A new photo needs the same check: tools/film/make_stills.py makes the crops. */
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(19,6,26,.86) 0%,rgba(19,6,26,.7) 16%,rgba(19,6,26,0) 34%,rgba(19,6,26,0) 40%,rgba(19,6,26,.66) 60%,rgba(19,6,26,.88) 80%,rgba(19,6,26,.94) 100%)}
+.card{--ci:clamp(28px,2.4vw,34px);--card-top:clamp(22px,2.7vw,40px);--card-x:clamp(24px,3vw,44px)}
+.card__for,.card__body{position:absolute;z-index:1;left:var(--card-x);right:var(--card-x)}
+.card__for{top:var(--card-top);margin:0;padding-right:calc(var(--ci) + 16px);font-size:var(--fs-label);line-height:1.4;color:var(--tint)}
+/* one icon per card, top right, opposite the audience line and centred on it (Luke, 24 Nov: "a nice icon top right on
+   these"). The site's icon family: 24 grid, 1.5 stroke at every size, square caps, outline only, as the scroller arrows
+   and the Challenge drawings; in the tint, the audience line's colour, so the top row reads as one. None repeats an
+   icon used elsewhere on the page: two coins (Cost: working capital; a stacked-coin cylinder read as a database), racking (Supply: stock held for you), a shield with
+   a tick (Trust: ring-fenced, built for audit). */
+.card__icon{position:absolute;z-index:1;right:var(--card-x);top:calc(var(--card-top) + (var(--fs-label) * 1.4 - var(--ci)) / 2);
+  width:var(--ci);height:var(--ci);fill:none;stroke:var(--tint);stroke-width:1.5;stroke-linecap:square;stroke-linejoin:miter;overflow:visible}
+.card__icon *{vector-effect:non-scaling-stroke}
+.card__body{bottom:clamp(24px,3vw,44px)}
+.card__name{margin:0;font-family:var(--serif);font-weight:var(--serif-wght);font-size:var(--fs-h2);line-height:1.04;letter-spacing:-.022em;color:#fff} /* the Why words are h2 on the scale */
+.card__text{margin:clamp(12px,1.2vw,16px) 0 0;font-family:var(--sans-display);font-size:var(--fs-lead);line-height:1.24;letter-spacing:-.01em;max-width:28ch;text-wrap:balance}
+.card .tlink{margin-top:clamp(14px,1.4vw,20px)}
+.card .grain{z-index:0}
+@media (min-width:700px) and (max-width:1023.98px){.card{width:76vw;aspect-ratio:3/2}}
+@media (max-width:699.98px){
+  .o6__nav{display:none}
+  .card{width:84vw;aspect-ratio:4/5}
+  .card__text{max-width:none}
+}
+/* entrance: the cards slide in from the right, one after another */
+.js .o6__list[data-rv] .card{opacity:0;transform:translateX(72px)}
+.js .o6__list[data-rv].is-in .card{opacity:1;transform:none;transition:opacity 1.2s var(--ease),transform 1.7s var(--ease);transition-delay:calc(var(--i,0) * .12s)}
+
+/* ---------- 7: alternating two-column rows (Harvey, Agents / Vault) ---------- */
+/* Harvey's rhythm (Luke, 23 Nov: "less white space between the sections"): rows about a sixth of a picture's height apart, was a third */
+.ab{margin-top:clamp(56px,6vw,88px);display:flex;flex-direction:column;gap:clamp(56px,5.6vw,80px)}
+.ab__row{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col-gap);align-items:center}
+.ab__media{position:relative;margin:0;aspect-ratio:4/3;border-radius:var(--radius);overflow:clip;background:var(--media-dark);grid-row:1}
+.ab__media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.8s var(--ease)}
+.ab__row:hover .ab__media img{transform:scale(1.03)}
+.ab__copy{grid-row:1}
+.ab__row--a .ab__media{grid-column:1 / 7}.ab__row--a .ab__copy{grid-column:8 / 12}
+.ab__row--b .ab__media{grid-column:7 / 13}.ab__row--b .ab__copy{grid-column:2 / 6}
+.ab__name{margin:0 0 clamp(14px,1.4vw,22px);font-family:var(--serif);font-weight:var(--serif-wght);font-size:var(--fs-h2);line-height:1;letter-spacing:-.025em;color:#fff}
+/* the audience and the promise read as one paragraph: same size and leading, the audience in the tint */
+/* 21px at every size (Luke, 23 Nov: "probably too big and 21px would be fine for that body copy"), with body leading */
+.ab__para{margin:0;font-family:var(--sans-display);font-size:21px;line-height:1.38;letter-spacing:-.005em;color:#fff;text-wrap:pretty}
+.ab__for{display:block;color:var(--tint);font-weight:600} /* the bolder cut so the audience stands out (Luke, 23 Nov; was 500) */
+.ab__btn{margin-top:clamp(24px,2.4vw,32px)}
+/* outline button on dark, the site's button shape (6px radius); Harvey's rows each end in one */
+.btn--ghost{background:transparent;color:var(--white);box-shadow:inset 0 0 0 1px rgba(255,255,255,.42);transition:box-shadow .5s var(--ease),background-color .5s var(--ease)}
+.btn--ghost:hover{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px var(--white)}
+/* tablet: half and half, so the audience line stays on one line beside the picture */
+@media (max-width:1199.98px){.ab__row--a .ab__copy{grid-column:7 / 13}.ab__row--b .ab__copy{grid-column:1 / 7}}
+@media (max-width:699.98px){
+  .ab__row{display:block}
+  .ab__media{margin-bottom:28px}
+}
+/* entrance: the picture settles from a slight scale as it fades in; the word, then the paragraph, rise after it */
+.js .ab__row[data-rv] .ab__media{opacity:0}
+.js .ab__row[data-rv] .ab__media img{transform:scale(1.08)}
+.js .ab__row[data-rv] .ab__copy>*{opacity:0;transform:translateY(14px)}
+.js .ab__row[data-rv].is-in .ab__media{opacity:1;transition:opacity 1.4s var(--ease)}
+.js .ab__row[data-rv].is-in .ab__media img{transform:none;transition:transform 2.4s var(--ease)}
+.js .ab__row[data-rv].is-in:hover .ab__media img{transform:scale(1.03);transition:transform 1.8s var(--ease)}
+.js .ab__row[data-rv].is-in .ab__copy>*{opacity:1;transform:none;transition:opacity 1.2s var(--ease),transform 1.5s var(--ease)}
+.js .ab__row[data-rv].is-in .ab__copy>:nth-child(1){transition-delay:.25s}
+.js .ab__row[data-rv].is-in .ab__copy>:nth-child(2){transition-delay:.37s}
+.js .ab__row[data-rv].is-in .ab__copy>:nth-child(3){transition-delay:.49s}
+@media (prefers-reduced-motion:reduce){
+  .js [data-rv] .card,.js [data-rv] .ab__media,.js [data-rv] .ab__media img,.js [data-rv] .ab__copy>*{opacity:1!important;transform:none!important;transition:none!important}
+}

@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Invensa | Inventory on demand. The next generation of VMI.</title>
+<meta name="description" content="Invensa buys and holds your critical inventory, and you pay when you pull it. Backed by Santander CIB and Pemberton.">
+<!-- PROOF: noindex while on proof. Remove at launch. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2A1233">
+
+<!-- Social. og:image must be absolute: swap the domain if the live URL differs. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Invensa">
+<meta property="og:title" content="Invensa | Inventory on demand">
+<meta property="og:description" content="Invensa buys and holds your critical inventory, and you pay when you pull it. Backed by Santander CIB and Pemberton.">
+<meta property="og:url" content="https://invensatrade.com/">
+<meta property="og:image" content="https://invensatrade.com/assets/img/og-invensa.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Invensa. Inventory on demand.">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.svg?v=202611241515" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png?v=202611241515">
+
+<!-- Type: Newsreader (display, open licence) + Red Hat Text (brand family). Self-host for production. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,200..500&family=Red+Hat+Display:wght@400&family=Red+Hat+Text:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
+<link rel="stylesheet" href="assets/css/main.css?v=202611241515">
+<link rel="stylesheet" href="assets/css/motion.css?v=202611241515">
+<link rel="stylesheet" href="assets/css/brand.css?v=202611241515">
+<link rel="stylesheet" href="assets/css/why.css?v=202611241515">
+<link rel="stylesheet" href="assets/css/pressure-anims.css?v=202611241515">
+<script>document.documentElement.classList.add('js')</script>
+<!-- PROOF GATE (tools/proof/build_proof.py). A curtain for the client proof, not security. Remove for launch. -->
+<script>window.__gate={k:'invensa-proof',h:'caf39b231ebf961b33b4b5b5ce32ac3bae9cfb18de3ba01099fcd5b3565ba15f'};(function(){try{if(localStorage.getItem(__gate.k)===__gate.h||sessionStorage.getItem(__gate.k)===__gate.h)return}catch(e){}document.documentElement.classList.add('gated')})();</script>
+<style>
+.gate{display:none}
+html.gated{background:#2A1233}
+html.gated body>*:not(.gate){display:none!important}
+html.gated,html.gated *{cursor:auto!important}
+html.gated .gate{display:grid;place-items:center;min-height:100vh;min-height:100svh;padding:24px;background:#2A1233;color:#fff;font-family:'Red Hat Text','Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.gate__form{width:min(100%,360px)}
+.gate__logo{display:block;width:120px;height:auto;margin:0 0 48px}
+.gate__title{margin:0 0 32px;font-family:'Newsreader',Georgia,serif;font-weight:350;font-size:36px;line-height:1.1;letter-spacing:-.018em;font-optical-sizing:auto}
+.gate__label{display:block;margin:0 0 6px;font-size:14px;line-height:1.4;color:#CDB6D6}
+.gate__row{display:flex;gap:12px;align-items:flex-end}
+.gate__input{flex:1;min-width:0;height:44px;margin:0;padding:0 0 2px;border:0;border-bottom:1px solid rgba(255,255,255,.42);border-radius:0;background:transparent;color:#fff;font:inherit;font-size:16px;letter-spacing:.06em;transition:border-color .5s cubic-bezier(.16,1,.3,1)}
+.gate__input:focus{outline:none;border-bottom-color:#fff}
+.gate__btn{flex:none;height:44px;padding:0 22px 1px;border:0;border-radius:6px;background:#fff;color:#2A1233;font:inherit;font-size:15px;font-weight:500;letter-spacing:.005em;cursor:pointer!important;transition:background-color .5s cubic-bezier(.16,1,.3,1)}
+.gate__btn:hover{background:#F1EAF3}
+.gate__btn:focus-visible{outline:2px solid #CDB6D6;outline-offset:3px}
+.gate__msg{min-height:22px;margin:14px 0 0;font-size:14px;line-height:1.55;color:#CDB6D6}
+</style>
+</head>
+<body>
+<div class="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <form class="gate__form" novalidate>
+    <img class="gate__logo" src="assets/logos/invensa-logo-white.svg" alt="Invensa" width="120" height="44">
+    <p class="gate__title" id="gate-title">Homepage proof</p>
+    <label class="gate__label" for="gate-pw">Password</label>
+    <div class="gate__row"><input class="gate__input" id="gate-pw" type="password" autocomplete="current-password" spellcheck="false"><button class="gate__btn" type="submit">View</button></div>
+    <p class="gate__msg" aria-live="polite"></p>
+  </form>
+</div>
+<script>
+(function(){
+  if(!document.documentElement.classList.contains('gated'))return;
+  /* SHA-256 in plain JS (works on file:// and http, where crypto.subtle is missing) */
+  function sha256(a){function r(v,n){return(v>>>n)|(v<<(32-n))}var M=Math.pow(2,32),out='',w=[],L=a.length*8,h=[],k=[],c=0,comp={},i,j;
+    for(var q=2;c<64;q++){if(!comp[q]){for(i=0;i<313;i+=q)comp[i]=q;h[c]=(Math.pow(q,.5)*M)|0;k[c++]=(Math.pow(q,1/3)*M)|0}}
+    a+='\x80';while(a.length%64-56)a+='\x00';for(i=0;i<a.length;i++){j=a.charCodeAt(i);w[i>>2]|=j<<((3-i)%4)*8}
+    w[w.length]=(L/M)|0;w[w.length]=L;
+    for(j=0;j<w.length;){var x=w.slice(j,j+=16),o=h;h=h.slice(0,8);
+      for(i=0;i<64;i++){var a15=x[i-15],a2=x[i-2],A=h[0],E=h[4];
+        var t1=h[7]+(r(E,6)^r(E,11)^r(E,25))+((E&h[5])^((~E)&h[6]))+k[i]+(x[i]=(i<16)?x[i]:(x[i-16]+(r(a15,7)^r(a15,18)^(a15>>>3))+x[i-7]+(r(a2,17)^r(a2,19)^(a2>>>10)))|0);
+        var t2=(r(A,2)^r(A,13)^r(A,22))+((A&h[1])^(A&h[2])^(h[1]&h[2]));h=[(t1+t2)|0].concat(h);h[4]=(h[4]+t1)|0}
+      for(i=0;i<8;i++)h[i]=(h[i]+o[i])|0}
+    for(i=0;i<8;i++)for(j=3;j+1;j--){var b=(h[i]>>(j*8))&255;out+=(b<16?'0':'')+b.toString(16)}return out}
+  var f=document.querySelector('.gate__form'),inp=f.querySelector('input'),msg=f.querySelector('.gate__msg');
+  setTimeout(function(){inp.focus()},60);
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(sha256(unescape(encodeURIComponent(inp.value.trim())))!==__gate.h){msg.textContent='That password isn\u2019t right. Try again.';inp.select();return}
+    var kept=false;try{localStorage.setItem(__gate.k,__gate.h);kept=true}catch(x){try{sessionStorage.setItem(__gate.k,__gate.h);kept=true}catch(y){}}
+    if(kept){location.reload();return}
+    document.documentElement.classList.remove('gated');scrollTo(0,0);dispatchEvent(new Event('resize'));   /* storage blocked: open in place */
+  });
+})();
+</script>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ COMPONENT: SiteHeader ============ -->
+<header class="nav" data-nav>
+  <div class="wrap nav__bar">
+    <a class="nav__logo" href="./" aria-label="Invensa home">
+      <!-- Proof: the official logo paths inline (same artwork as the SVG files, colour from CSS) so the Portal's two spirals can move -->
+      <svg class="logo lg" viewBox="0 0 372.66 137.35" aria-hidden="true" focusable="false"><defs><linearGradient id="lg-nav-l" x1="42.48" y1="104.84" x2="53.3" y2="43.46" gradientUnits="userSpaceOnUse"><stop offset=".13" stop-color="currentColor"/><stop offset=".86" stop-color="currentColor" stop-opacity="0"/></linearGradient><linearGradient id="lg-nav-r" x1="65.48" y1="94.42" x2="77.1" y2="28.53" gradientUnits="userSpaceOnUse"><stop offset=".13" stop-color="currentColor" stop-opacity="0"/><stop offset=".81" stop-color="currentColor"/></linearGradient><clipPath id="lg-nav-clip"><rect x="120" y="0" width="260" height="97"/></clipPath></defs><g class="lg__word" fill="currentColor" clip-path="url(#lg-nav-clip)"><path d="M137.14,43.21h5.38v6.31h-5.38v-6.31ZM137.14,57.55h5.38v35.87h-5.38v-35.87Z"/><path d="M152.86,57.55h5.38v2.51c2.44-1.36,7.17-3.23,11.12-3.23,9.83,0,12.05,4.88,12.05,17.65v18.94h-5.38v-18.8c0-9.47-1-12.99-7.68-12.99-3.73,0-7.96,1.51-10.12,2.65v29.13h-5.38v-35.87Z"/><path d="M187.73,57.55h5.81l8.32,31.21h2.65l8.68-31.21h5.52l-10.12,35.87h-10.83l-10.04-35.87Z"/><path d="M223.39,75.71c0-13.63,5.88-18.87,15-18.87s14.49,5.02,14.49,16.79l-.36,4.09h-23.68c.07,7.68,2.37,11.62,9.47,11.62,3.87,0,9.76-.36,13.13-.65l.14,4.3c-3.52.5-9.76,1.15-13.99,1.15-10.69,0-14.21-6.24-14.21-18.44ZM247.43,73.41c0-8.9-2.73-12.05-9.04-12.05s-9.54,3.37-9.54,12.05h18.58Z"/><path d="M261.2,57.55h5.38v2.51c2.44-1.36,7.17-3.23,11.12-3.23,9.83,0,12.05,4.88,12.05,17.65v18.94h-5.38v-18.8c0-9.47-1-12.99-7.68-12.99-3.73,0-7.96,1.51-10.12,2.65v29.13h-5.38v-35.87Z"/><path d="M298.37,92.78l.29-4.66c3.52.5,9.18,1.22,11.84,1.22,5.88,0,8.97-1.36,8.97-6.17,0-3.73-1.87-4.66-9.62-5.81-8.11-1.29-11.98-2.87-11.98-10.04,0-7.89,6.39-10.48,12.92-10.48,3.95,0,9.69.79,12.99,1.36l-.14,4.66c-3.44-.5-9.18-1.15-12.55-1.15-4.45,0-7.75,1.15-7.75,5.45,0,3.3,1.65,4.23,9.25,5.52,8.97,1.51,12.34,3.3,12.34,10.26,0,8.39-5.31,11.19-13.92,11.19-3.37,0-9.18-.79-12.63-1.36Z"/><path d="M330.88,83.17c0-6.89,3.59-9.97,10.98-10.62l11.26-1.08v-3.08c0-5.02-2.22-6.82-6.46-6.82-3.66,0-9.9.57-13.56.93l-.21-4.09c3.37-.65,9.54-1.58,14.06-1.58,8.11,0,11.55,3.73,11.55,11.55v18.29c.14,2.15,1.87,2.94,4.16,3.16l-.22,4.3c-2.08,0-3.73-.21-5.24-.79-1.22-.43-2.37-1.08-3.3-2.08-2.8,1.22-8.18,2.87-12.92,2.87-6.53,0-10.12-3.73-10.12-10.98ZM353.12,87.4v-11.84l-10.62,1c-4.38.43-6.1,2.51-6.1,6.46,0,4.16,1.79,6.6,5.45,6.6,3.87,0,8.68-1.22,11.26-2.22Z"/></g><g class="lg__s lg__s--a"><path fill="currentColor" d="M108.88,65.25c0,24.95-20.3,45.25-45.25,45.25-1.42,0-2.82-.08-4.19-.24v-10.59c1.36.22,2.76.33,4.19.33,19.16,0,34.75-15.59,34.75-34.75,0-24.67-20.08-44.75-44.75-44.75v-10.5c30.46,0,55.25,24.79,55.25,55.25Z"/><path fill="url(#lg-nav-l)" d="M63.63,110.5c-20.54,0-37.25-16.71-37.25-37.25,0-17.01,13.84-30.85,30.85-30.85h2.21v10.5h-2.21c-11.23,0-20.35,9.13-20.35,20.35,0,14.75,12,26.75,26.75,26.75v10.5Z"/></g><g class="lg__s lg__s--b"><path fill="currentColor" d="M65.25,116.85v10.5c-30.47,0-55.25-24.79-55.25-55.25,0-24.95,20.29-45.25,45.25-45.25,1.42,0,2.82.08,4.19.24v10.59c-1.36-.22-2.76-.33-4.19-.33-19.17,0-34.75,15.59-34.75,34.75,0,24.67,20.07,44.75,44.75,44.75Z"/><path fill="url(#lg-nav-r)" d="M55.25,37.35c14.75,0,26.75,12,26.75,26.75,0,11.21-9.11,20.33-20.32,20.35h-2.24v10.5h2.24c17-.02,30.82-13.85,30.82-30.85,0-20.54-16.71-37.25-37.25-37.25v10.5Z"/></g></svg>
+    </a>
+
+    <nav class="nav__links" aria-label="Main">
+      <ul>
+        <li><a href="/how-it-works/" data-unbuilt>How it works</a></li>
+        <li><a href="/why-not-financing/" data-unbuilt>Why not financing</a></li>
+        <li><a href="/sectors-and-regions/" data-unbuilt>Sectors &amp; Regions</a></li>
+        <li><a href="/insights/" data-unbuilt>Insights</a></li>
+        <li class="nav__drop">
+          <button type="button" aria-expanded="false" aria-controls="about-menu">About<svg class="chev" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg></button>
+          <ul id="about-menu" class="nav__menu">
+            <li><a href="/about/our-backing/" data-unbuilt>Our backing</a></li>
+            <li><a href="/about/news-and-awards/" data-unbuilt>News &amp; Awards</a></li>
+            <li><a href="/about/team-and-careers/" data-unbuilt>Team &amp; Careers</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <a class="btn btn--sm nav__cta" href="/contact/" data-unbuilt>Talk to an expert</a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="nav__toggle-label">Menu</span><span class="nav__toggle-icon" aria-hidden="true"><i></i><i></i></span></button>
+  </div>
+
+  <div class="mmenu" id="mobile-menu" hidden>
+    <div class="wrap mmenu__inner">
+      <ul class="mmenu__list">
+        <li><a href="/how-it-works/" data-unbuilt>How it works</a></li>
+        <li><a href="/why-not-financing/" data-unbuilt>Why not financing</a></li>
+        <li><a href="/sectors-and-regions/" data-unbuilt>Sectors &amp; Regions</a></li>
+        <li><a href="/insights/" data-unbuilt>Insights</a></li>
+        <li><a href="/about/our-backing/" data-unbuilt>Our backing</a></li>
+        <li><a href="/about/news-and-awards/" data-unbuilt>News &amp; Awards</a></li>
+        <li><a href="/about/team-and-careers/" data-unbuilt>Team &amp; Careers</a></li>
+      </ul>
+      <a class="btn btn--light" href="/contact/" data-unbuilt>Talk to an expert</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- the hero slides up to reveal the film band waiting behind it (Luke, 24 Nov; on option 6 too, once it was chosen:
+     "we love the top bit of option 7 where it scrolls up to reveal the film"). The wrapper is the pin's
+     track: main-v2.css .reveal, switched on by motion-v2.js when the screen suits it. -->
+<div class="reveal" data-reveal-stack>
+
+<!-- ============ COMPONENT: Hero (01) ============ -->
+<section class="hero" data-theme="dark" aria-labelledby="hero-title">
+  <canvas class="hero__field" data-pp-hero aria-hidden="true"></canvas>
+  <div class="hero__grain" aria-hidden="true"></div>
+
+  <div class="wrap hero__inner">
+    <div class="hero__copy">
+      <h1 id="hero-title" class="hero__title" data-intro="2">Inventory <br aria-hidden="true">on demand<span class="hero__stop">.</span></h1>
+      <p class="hero__sub" data-intro="3">We buy and hold your critical inventory, and you pay when you pull it.</p>
+      <div class="hero__actions" data-intro="4">
+        <a class="btn btn--light" href="/contact/" data-unbuilt>Talk to us</a>
+        <a class="tlink tlink--light" href="#how-it-works">See how it works</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap hero__backers" data-intro="5">
+    <p>Backed by Santander CIB and <span class="nw">Pemberton Asset Management</span>.</p>
+    <ul class="backers" aria-label="Backers">
+      <li><img src="assets/logos/santander-white.png?v=202611241515" alt="Santander" width="774" height="136"></li>
+      <li><img src="assets/logos/pemberton-white.png?v=202611241515" alt="Pemberton Asset Management" width="1040" height="133"></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ COMPONENT: FilmBand (01b) ============
+     Film A (Artlist, see docs/image-credits.md) at content width, 16:9 (Luke, 23 Nov: "the hero film content with 16:9
+     beneath the hero banner as the first section"). The line that was the hero's eyebrow is its title. Loads when near,
+     plays only while seen (main.js [data-video]); reduced motion keeps the poster.
+     The film drifts gently inside its frame as the page scrolls (Luke, 24 Nov: "subtle and classy parallax"). -->
+<section class="film section" aria-labelledby="film-title">
+  <div class="wrap">
+    <h2 id="film-title" class="h3 film__title" data-reveal>The next generation of VMI</h2>
+    <div class="film__frame" data-video data-reveal aria-hidden="true">
+      <div class="film__media" data-parallax>
+        <video muted loop playsinline preload="none" poster="assets/video/inventory-film-poster.jpg?v=202611241515">
+          <source data-src="assets/video/inventory-film-720.mp4?v=202611241515" media="(max-width: 900px)" type="video/mp4">
+          <source data-src="assets/video/inventory-film.mp4?v=202611241515" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- ============ COMPONENT: Challenge (02) ============
+     Three illustrated scenes (Luke approved, 23 Nov: "minimal but elegant and classy"). Each pressure is a short
+     looping drawing in Invensa's own language (dot grid, straight gradient lines, points as stock), built by
+     assets/js/pressure-anims.js into each [data-pressure] tile; the sentence underneath is the caption. -->
+<section class="challenge section section--joined" aria-labelledby="challenge-title">
+  <div class="wrap">
+    <h2 id="challenge-title" class="h2" data-reveal>Holding inventory <br class="br-d br-t" aria-hidden="true">has never cost more.</h2>
+
+    <ul class="scenes" role="list">
+      <li class="scene" data-reveal>
+        <div class="pressure-anim" data-pressure="prices"></div>
+        <p class="scene__cap">Component prices <br class="br-d br-t" aria-hidden="true">are rising.</p>
+      </li>
+      <li class="scene" data-reveal>
+        <div class="pressure-anim" data-pressure="risk"></div>
+        <p class="scene__cap">Suppliers no longer <br class="br-d br-t" aria-hidden="true">carry the forecast risk.</p>
+      </li>
+      <li class="scene" data-reveal>
+        <div class="pressure-anim" data-pressure="credit"></div>
+        <p class="scene__cap">Growth is running <br class="br-d br-t" aria-hidden="true">into credit limits.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ COMPONENT: HowItWorks (03) ============ -->
+<section class="how section section--joined" id="how-it-works" aria-labelledby="how-title">
+  <div class="wrap">
+    <h2 id="how-title" class="h2" data-reveal>We buy it. <br class="br-m" aria-hidden="true">We hold it. <br class="br-d br-t br-m" aria-hidden="true"><span class="hl">You pull it.</span></h2>
+
+    <ol class="steps" role="list">
+      <li class="step" data-reveal>
+        <div class="step__fig" data-step="buy" aria-hidden="true"></div>
+        <h3 class="step__title">We buy</h3>
+        <p>We buy from your suppliers, at your prices and on your terms.</p>
+      </li>
+      <li class="step" data-reveal>
+        <div class="step__fig" data-step="hold" aria-hidden="true"></div>
+        <h3 class="step__title">We hold</h3>
+        <p>We own the stock and carry the risk for up to 12 months.</p>
+      </li>
+      <li class="step" data-reveal>
+        <div class="step__fig" data-step="pull" aria-hidden="true"></div>
+        <h3 class="step__title">You pull</h3>
+        <p>You call it off when you need it, and pay for it then.</p>
+      </li>
+    </ol>
+
+    <p class="how__note" data-reveal>You keep your suppliers and your systems. We charge one transparent fee and never mark up the goods.</p>
+  </div>
+</section>
+
+<!-- ============ COMPONENT: WorkingCapital (04) ============
+     Calculator parked per brief (23 Nov). Static timeline only. Timeline logic to be confirmed with Invensa. -->
+<section class="capital section section--tint" id="working-capital" aria-labelledby="capital-title">
+  <div class="wrap capital__grid">
+    <div class="capital__copy">
+      <h2 id="capital-title" class="h2" data-reveal>You pay when <br class="br-d br-m br-xs-off" aria-hidden="true">your customer pays.</h2>
+      <p class="lede" data-reveal>We settle your supplier on day one. You pay us when your customer pays you.</p>
+    </div>
+
+    <figure class="timeline" data-timeline data-reveal>
+      <div class="timeline__chart" role="img" aria-label="Without Invensa, you pay your supplier at day 90 and your customer pays you at day 180, leaving a 90-day gap. With Invensa, we settle your supplier on day 0 and you pay us at day 180, when your customer pays you.">
+        <div class="timeline__days" aria-hidden="true">
+          <span style="--x:0">Day 0</span><span style="--x:.5">Day 90</span><span style="--x:1">Day 180</span>
+        </div>
+        <div class="timeline__row timeline__row--without" aria-hidden="true">
+          <span class="timeline__label">Without Invensa</span>
+          <div class="timeline__track">
+            <span class="tl-bar tl-bar--gap" style="--a:.5;--b:1"><span>90-day gap</span></span>
+            <span class="tl-pin" style="--x:.5"></span>
+            <span class="tl-pin tl-pin--in" style="--x:1"></span>
+          </div>
+        </div>
+        <div class="timeline__row timeline__row--with" aria-hidden="true">
+          <span class="timeline__label">With Invensa</span>
+          <div class="timeline__track">
+            <span class="tl-bar tl-bar--held" style="--a:0;--b:1"></span>
+            <span class="tl-pin tl-pin--ours" style="--x:0"></span>
+            <span class="tl-pin tl-pin--in" style="--x:1"></span>
+          </div>
+        </div>
+      </div>
+      <figcaption class="smallprint">Illustrative only. This releases working capital and is not a cost saving, because the hold carries a fee. It is not an offer.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ COMPONENT: WhyInvensa (05) ============ -->
+<!-- Why Invensa, option 6 (proof) -->
+<section class="why section o6" id="why-invensa" data-theme="dark" aria-labelledby="why-title">
+  <h2 id="why-title" class="vh">Cost. Supply. Trust.</h2>
+  <div class="wrap o6__head">
+    <p class="lead2">Three things every programme delivers, <br aria-hidden="true">through one ownership model.</p>
+    <div class="o6__nav">
+      <button class="o6__btn o6__btn--prev" type="button" aria-label="Previous" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+      <button class="o6__btn o6__btn--next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <div class="o6__track" tabindex="0" role="region" aria-label="Cost, Supply and Trust">
+    <ul class="o6__list" role="list" data-rv>
+        <li class="card" style="--i:0">
+          <picture>
+            <source media="(max-width: 699.98px)" srcset="assets/img/why/why-cost-card-portrait.jpg?v=202611241515" width="1060" height="1325">
+            <img class="card__img" src="assets/img/why/why-cost-card.jpg?v=202611241515" alt="" width="1600" height="1000" loading="lazy" draggable="false">
+          </picture>
+          <p class="card__for">For finance and treasury</p>
+          <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15.71 7.36A6.75 6.75 0 1 0 8.29 16.64"/><circle cx="14.5" cy="14" r="6.75"/><circle cx="14.5" cy="14" r="3.5"/></svg>
+          <div class="card__body"><h3 class="card__name">Cost.</h3><p class="card__text">Working capital is released from day one, with no new debt.</p></div>
+        </li>
+        <li class="card" style="--i:1">
+          <picture>
+            <source media="(max-width: 699.98px)" srcset="assets/img/why/why-supply-card-portrait.jpg?v=202611241515" width="1060" height="1325">
+            <img class="card__img" src="assets/img/why/why-supply-card.jpg?v=202611241515" alt="" width="1600" height="1000" loading="lazy" draggable="false">
+          </picture>
+          <p class="card__for">For procurement and supply chain</p>
+          <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 3V21M20 3V21M4 11.5H20M4 20H20"/><rect x="6.5" y="6" width="5" height="5.5"/><rect x="12.5" y="7.5" width="4.5" height="4"/><rect x="7" y="14.5" width="10" height="5.5"/></svg>
+          <div class="card__body"><h3 class="card__name">Supply.</h3><p class="card__text">Your stock is reserved for you, and never sold to a higher bidder.</p></div>
+        </li>
+        <li class="card" style="--i:2">
+          <picture>
+            <source media="(max-width: 699.98px)" srcset="assets/img/why/why-trust-card-portrait.jpg?v=202611241515" width="800" height="1000">
+            <img class="card__img" src="assets/img/why/why-trust-card.jpg?v=202611241515" alt="" width="1600" height="1000" loading="lazy" draggable="false">
+          </picture>
+          <p class="card__for">For accounting and audit</p>
+          <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.75L19.5 5.5V11c0 4.7-3.1 8.4-7.5 10.25C7.6 19.4 4.5 15.7 4.5 11V5.5Z"/><path d="M8.5 11.75L11 14.25L15.75 9.5"/></svg>
+          <div class="card__body"><h3 class="card__name">Trust.</h3><p class="card__text">Each programme is a ring-fenced true sale, built to stand up to audit.</p><a class="tlink tlink--light" data-unbuilt href="/contact/?topic=accounting-paper">Ask for our accounting paper</a></div>
+        </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ COMPONENT: WhoItsFor (06) ============
+     Desktop and landscape tablets: the section pins to the screen and scrolling steps through the six teams before the
+     page moves on (Tom, via Luke, 24 Nov: "rather than clicking through each tab ... a scroll action so it locks full
+     screen"): who-scroll.js drives main.js's tabs from the scroll position. Tabs if the screen is too short to pin,
+     accordion under 900px. All panel copy stays in the HTML (crawlable). -->
+<section class="who section section--tint" aria-labelledby="who-title" data-pin-steps>
+  <div class="who__stage">
+  <div class="wrap">
+    <div class="who__head">
+      <h2 id="who-title" class="h2" data-reveal>It solves a different problem <br class="br-d" aria-hidden="true">for every team involved.</h2>
+      <p class="lede" data-reveal>Invensa resolves different priorities for every team that touches inventory.</p>
+    </div>
+
+    <div class="aud" data-tabs data-reveal>
+      <div class="aud__list" data-tablist>
+        <span class="aud__marker" aria-hidden="true"></span>
+      </div>
+
+      <div class="aud__item">
+        <button class="aud__tab" type="button" id="tab-treasury" aria-controls="panel-treasury">Treasury</button>
+        <div class="aud__panel" id="panel-treasury" aria-labelledby="tab-treasury">
+          <h3>Release working capital without adding debt.</h3>
+          <p>Reduce the capital tied up in inventory and improve cash conversion, while keeping supply available when the business needs it.</p>
+          <ul>
+            <li>Lower days inventory outstanding</li>
+            <li>Improve return on capital employed</li>
+            <li>Preserve liquidity for growth</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="aud__item">
+        <button class="aud__tab" type="button" id="tab-procurement" aria-controls="panel-procurement">Procurement</button>
+        <div class="aud__panel" id="panel-procurement" aria-labelledby="tab-procurement">
+          <h3>Secure supply without changing the supplier relationship.</h3>
+          <p>You retain control of sourcing, pricing and supplier terms. Invensa provides the ownership and balance-sheet capacity.</p>
+          <ul>
+            <li>Your suppliers, your negotiated prices</li>
+            <li>Buffer stock without the carry</li>
+            <li>Call off against your own forecast</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="aud__item">
+        <button class="aud__tab" type="button" id="tab-cfo" aria-controls="panel-cfo">CFO</button>
+        <div class="aud__panel" id="panel-cfo" aria-labelledby="tab-cfo">
+          <h3>Support growth without inflating the balance sheet.</h3>
+          <p>A genuine true sale with IFRS 15 substance, built to survive audit, and reviewed with your accounting, legal and audit stakeholders before launch.</p>
+          <ul>
+            <li>A trade, not financing</li>
+            <li>No new debt, no covenant impact</li>
+            <li>One transparent monthly fee</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="aud__item">
+        <button class="aud__tab" type="button" id="tab-sales" aria-controls="panel-sales">Sales</button>
+        <div class="aud__panel" id="panel-sales" aria-labelledby="tab-sales">
+          <h3>Sell from strength, not scarcity.</h3>
+          <p>Stock secured ahead of the market, so you never surrender revenue or margin to a squeeze.</p>
+          <ul>
+            <li>Quote with confidence on lead times</li>
+            <li>Protect margin through tight markets</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="aud__item">
+        <button class="aud__tab" type="button" id="tab-accounting" aria-controls="panel-accounting">Accounting</button>
+        <div class="aud__panel" id="panel-accounting" aria-labelledby="tab-accounting">
+          <h3>A structure that stands up to scrutiny.</h3>
+          <p>A genuine true sale with IFRS 15 substance, designed to withstand audit. We set out the accounting treatment clearly and in advance.</p>
+          <ul>
+            <li>Treatment agreed before launch</li>
+            <li>Clean, auditable documentation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="aud__item">
+        <button class="aud__tab" type="button" id="tab-suppliers" aria-controls="panel-suppliers">Suppliers</button>
+        <div class="aud__panel" id="panel-suppliers" aria-labelledby="tab-suppliers">
+          <h3>Paid upfront, on every order.</h3>
+          <p>Your suppliers are paid on despatch rather than on your payment terms, which strengthens your standing with them.</p>
+          <ul>
+            <li>Faster cash for your supply base</li>
+            <li>Stronger negotiating position for you</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ============ COMPONENT: Backing (07) ============ -->
+<section class="backing section" aria-labelledby="backing-title">
+  <div class="wrap">
+    <div class="backing__head">
+      <h2 id="backing-title" class="h2" data-reveal>Santander CIB and Pemberton <br class="br-d br-t" aria-hidden="true">stand behind Invensa.</h2>
+      <!-- the backers' official logos under the line that names them (Luke, 24 Nov): one mid grey, the secondary-text grey -->
+      <ul class="backing__logos" role="list" aria-label="Invensa's backers" data-reveal>
+        <li><img src="assets/logos/santander-grey.svg?v=202611241515" alt="Santander" width="816" height="144"></li>
+        <li><img src="assets/logos/pemberton-grey.png?v=202611241515" alt="Pemberton Asset Management" width="644" height="84"></li>
+      </ul>
+    </div>
+
+    <ul class="stats" role="list">
+      <li class="stat" data-reveal>
+        <p class="stat__num">$60m+</p>
+        <p class="stat__label">of equity in Invensa</p>
+      </li>
+      <li class="stat" data-reveal>
+        <p class="stat__num">10+</p>
+        <p class="stat__label">years of Santander inventory programmes</p>
+      </li>
+      <li class="stat" data-reveal>
+        <p class="stat__num">3</p>
+        <p class="stat__label">continents with teams in the UK, the US and Asia</p>
+      </li>
+    </ul>
+
+    <figure class="quote" data-reveal>
+      <blockquote>
+        <p>“This partnership with <br class="br-m" aria-hidden="true">Pemberton <br class="br-d br-t" aria-hidden="true">enables us <br class="br-m" aria-hidden="true">to serve our clients <br aria-hidden="true">as a <span class="nw">long-term</span> partner.”</p>
+      </blockquote>
+      <figcaption><span class="quote__name">Jose M. Linares</span> <span class="quote__role">Global Head, Santander CIB</span></figcaption>
+    </figure>
+
+    <p class="award" data-reveal><span class="award__mark" aria-hidden="true"></span><span>Euromoney Transaction Banking Awards 2025: <br aria-hidden="true">Global Best Transaction Banking Partnership</span></p>
+  </div>
+</section>
+
+<!-- ============ COMPONENT: SupplierBand (08) ============ -->
+<section class="suppliers section section--tint" id="suppliers" aria-labelledby="suppliers-title">
+  <div class="wrap suppliers__grid">
+    <figure class="suppliers__media" data-reveal>
+      <div class="suppliers__img">
+        <!-- Adobe Stock 694820928, supplied by Luke 23 Nov (original in _source/stock). Crop set by object-position:
+             both people and the tablet stay in frame, the aisle of pallets runs off to the left. -->
+        <img src="assets/img/suppliers-team-tablet.jpg?v=202611241515" srcset="assets/img/suppliers-team-tablet-1200.jpg?v=202611241515 1200w, assets/img/suppliers-team-tablet.jpg?v=202611241515 2400w" sizes="(max-width: 899.98px) 92vw, 46vw" alt="Two colleagues in a warehouse checking a tablet together, pallets of boxes stacked behind them" width="2400" height="1600" loading="lazy" decoding="async">
+      </div>
+    </figure>
+    <div class="suppliers__copy">
+      <h2 id="suppliers-title" class="h3" data-reveal>For suppliers, we <br class="br-m" aria-hidden="true">are <br class="br-d" aria-hidden="true">a <span class="nw">third-party</span> <br class="br-m" aria-hidden="true">inventory partner.</h2>
+      <p data-reveal>We buy the stock you hold for key customers, so you are paid sooner and your credit limits go further.</p>
+      <a class="tlink" href="/contact/?topic=supplier-programmes" data-unbuilt data-reveal>Talk to us about supplier programmes</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPONENT: ContactBanner (09) ============
+     Reusable: also sits on How it works, Why not financing and Sectors (per copy deck). -->
+<section class="cta section" data-theme="dark" aria-labelledby="cta-title">
+  <!-- Film B v2 (Artlist, see docs/image-credits.md): no clip shared with Film A, the film band under the hero (Luke, 24 Nov), under a flat aubergine overlay
+       so the type keeps its contrast. Loads only when near, plays only when seen, still poster for reduced motion. -->
+  <div class="cta__film" data-video aria-hidden="true">
+    <div class="cta__media" data-parallax>
+      <video muted loop playsinline preload="none" poster="assets/video/cta-film-v2-poster.jpg?v=202611241515" data-poster-portrait="assets/video/cta-film-v2-portrait-poster.jpg?v=202611241515">
+        <source data-src="assets/video/cta-film-v2-portrait.mp4?v=202611241515" media="(max-width: 699px)" type="video/mp4">
+        <source data-src="assets/video/cta-film-v2-720.mp4?v=202611241515" media="(max-width: 900px)" type="video/mp4">
+        <source data-src="assets/video/cta-film-v2.mp4?v=202611241515" type="video/mp4">
+      </video>
+    </div>
+  </div>
+  <div class="wrap cta__grid">
+    <h2 id="cta-title" class="h2" data-reveal>Start with a small <br class="br-d br-t" aria-hidden="true">first programme.</h2>
+    <div class="cta__side">
+      <p data-reveal>We begin with one supplier and one warehouse, so you can see the benefit in your own numbers before you scale up.</p>
+      <a class="btn btn--light" href="/contact/" data-unbuilt data-reveal>Talk to us</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ COMPONENT: SiteFooter ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <!-- the real logo artwork inline (not an <img>) so it can play its sting; sized to the "Asset Management." line (main-v2.css) -->
+        <svg class="footer__logo lg" data-reveal viewBox="0 0 372.66 137.35" role="img" aria-label="Invensa"><defs><linearGradient id="lg-foot-l" x1="42.48" y1="104.84" x2="53.3" y2="43.46" gradientUnits="userSpaceOnUse"><stop offset=".13" stop-color="currentColor"/><stop offset=".86" stop-color="currentColor" stop-opacity="0"/></linearGradient><linearGradient id="lg-foot-r" x1="65.48" y1="94.42" x2="77.1" y2="28.53" gradientUnits="userSpaceOnUse"><stop offset=".13" stop-color="currentColor" stop-opacity="0"/><stop offset=".81" stop-color="currentColor"/></linearGradient><clipPath id="lg-foot-clip"><rect x="120" y="0" width="260" height="97"/></clipPath></defs><g class="lg__word" fill="currentColor" clip-path="url(#lg-foot-clip)"><path d="M137.14,43.21h5.38v6.31h-5.38v-6.31ZM137.14,57.55h5.38v35.87h-5.38v-35.87Z"/><path d="M152.86,57.55h5.38v2.51c2.44-1.36,7.17-3.23,11.12-3.23,9.83,0,12.05,4.88,12.05,17.65v18.94h-5.38v-18.8c0-9.47-1-12.99-7.68-12.99-3.73,0-7.96,1.51-10.12,2.65v29.13h-5.38v-35.87Z"/><path d="M187.73,57.55h5.81l8.32,31.21h2.65l8.68-31.21h5.52l-10.12,35.87h-10.83l-10.04-35.87Z"/><path d="M223.39,75.71c0-13.63,5.88-18.87,15-18.87s14.49,5.02,14.49,16.79l-.36,4.09h-23.68c.07,7.68,2.37,11.62,9.47,11.62,3.87,0,9.76-.36,13.13-.65l.14,4.3c-3.52.5-9.76,1.15-13.99,1.15-10.69,0-14.21-6.24-14.21-18.44ZM247.43,73.41c0-8.9-2.73-12.05-9.04-12.05s-9.54,3.37-9.54,12.05h18.58Z"/><path d="M261.2,57.55h5.38v2.51c2.44-1.36,7.17-3.23,11.12-3.23,9.83,0,12.05,4.88,12.05,17.65v18.94h-5.38v-18.8c0-9.47-1-12.99-7.68-12.99-3.73,0-7.96,1.51-10.12,2.65v29.13h-5.38v-35.87Z"/><path d="M298.37,92.78l.29-4.66c3.52.5,9.18,1.22,11.84,1.22,5.88,0,8.97-1.36,8.97-6.17,0-3.73-1.87-4.66-9.62-5.81-8.11-1.29-11.98-2.87-11.98-10.04,0-7.89,6.39-10.48,12.92-10.48,3.95,0,9.69.79,12.99,1.36l-.14,4.66c-3.44-.5-9.18-1.15-12.55-1.15-4.45,0-7.75,1.15-7.75,5.45,0,3.3,1.65,4.23,9.25,5.52,8.97,1.51,12.34,3.3,12.34,10.26,0,8.39-5.31,11.19-13.92,11.19-3.37,0-9.18-.79-12.63-1.36Z"/><path d="M330.88,83.17c0-6.89,3.59-9.97,10.98-10.62l11.26-1.08v-3.08c0-5.02-2.22-6.82-6.46-6.82-3.66,0-9.9.57-13.56.93l-.21-4.09c3.37-.65,9.54-1.58,14.06-1.58,8.11,0,11.55,3.73,11.55,11.55v18.29c.14,2.15,1.87,2.94,4.16,3.16l-.22,4.3c-2.08,0-3.73-.21-5.24-.79-1.22-.43-2.37-1.08-3.3-2.08-2.8,1.22-8.18,2.87-12.92,2.87-6.53,0-10.12-3.73-10.12-10.98ZM353.12,87.4v-11.84l-10.62,1c-4.38.43-6.1,2.51-6.1,6.46,0,4.16,1.79,6.6,5.45,6.6,3.87,0,8.68-1.22,11.26-2.22Z"/></g><g class="lg__s lg__s--a"><path fill="currentColor" d="M108.88,65.25c0,24.95-20.3,45.25-45.25,45.25-1.42,0-2.82-.08-4.19-.24v-10.59c1.36.22,2.76.33,4.19.33,19.16,0,34.75-15.59,34.75-34.75,0-24.67-20.08-44.75-44.75-44.75v-10.5c30.46,0,55.25,24.79,55.25,55.25Z"/><path fill="url(#lg-foot-l)" d="M63.63,110.5c-20.54,0-37.25-16.71-37.25-37.25,0-17.01,13.84-30.85,30.85-30.85h2.21v10.5h-2.21c-11.23,0-20.35,9.13-20.35,20.35,0,14.75,12,26.75,26.75,26.75v10.5Z"/></g><g class="lg__s lg__s--b"><path fill="currentColor" d="M65.25,116.85v10.5c-30.47,0-55.25-24.79-55.25-55.25,0-24.95,20.29-45.25,45.25-45.25,1.42,0,2.82.08,4.19.24v10.59c-1.36-.22-2.76-.33-4.19-.33-19.17,0-34.75,15.59-34.75,34.75,0,24.67,20.07,44.75,44.75,44.75Z"/><path fill="url(#lg-foot-r)" d="M55.25,37.35c14.75,0,26.75,12,26.75,26.75,0,11.21-9.11,20.33-20.32,20.35h-2.24v10.5h2.24c17-.02,30.82-13.85,30.82-30.85,0-20.54-16.71-37.25-37.25-37.25v10.5Z"/></g></svg>
+        <p class="footer__tagline">Inventory on demand</p>
+        <p class="footer__desc">Invensa is the next generation of VMI, launched by Santander CIB and Pemberton Asset Management.</p>
+      </div>
+
+      <nav class="footer__cols" aria-label="Footer">
+        <!-- Links as supplied in the copy deck. Why Invensa and Suppliers are homepage sections, so they are anchors
+             (use "/#why-invensa" and "/#suppliers" once this footer sits on other pages). -->
+        <div>
+          <p class="footer__head">Explore</p>
+          <ul>
+            <li><a href="/how-it-works/" data-unbuilt>How it works</a></li>
+            <li><a href="#why-invensa">Why Invensa</a></li>
+            <li><a href="#suppliers">Suppliers</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__head">Company</p>
+          <ul>
+            <li><a href="/about/our-backing/" data-unbuilt>Our backing</a></li>
+            <li><a href="/contact/" data-unbuilt>Contact</a></li>
+            <li><a href="https://www.linkedin.com/" data-unbuilt rel="noopener">LinkedIn</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__head">Office</p>
+          <address>5 Howick Place<br>London, SW1P 1WG<br>United Kingdom</address>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer__base">
+      <p class="smallprint">© 2026 Invensa. All rights reserved. Figures in the capital model are illustrative and do not constitute an offer. Invensa does not provide accounting advice. Any treatment should be validated by the relevant auditors.</p>
+      <ul class="footer__legal">
+        <li><a href="/terms-of-use/" data-unbuilt>Terms of Use</a></li>
+        <li><a href="/privacy-policy/" data-unbuilt>Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" role="status" aria-live="polite" hidden></div>
+<div class="cursor is-hidden" aria-hidden="true"><span class="cursor__dot"></span></div>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="assets/js/precision-points.js?v=202611241515" defer></script>
+<script src="assets/js/pressure-anims.js?v=202611241515" defer></script>
+<script src="assets/js/main.js?v=202611241515" defer></script>
+<script src="assets/js/motion.js?v=202611241515" defer></script>
+<script src="assets/js/why.js?v=202611241515" defer></script>
+<script src="assets/js/who-scroll.js?v=202611241515" defer></script>
+</body>
+</html>

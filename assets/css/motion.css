@@ -1,0 +1,61 @@
+/* Motion v2 (proof, Luke 23 Nov: "are the text and element transitions ... best in class? I think they could be refined").
+   Choreography by role instead of one fade-up for everything:
+   - the hero headline is the page's one special moment: its words rise from behind a mask, a beat apart
+   - section headings: each line rises from behind its own mask, in sequence
+   - supporting text: a short, soft rise that waits for its heading
+   - keylines draw in from the left (the vertical rules between the steps draw downwards)
+   - the illustration tiles and the suppliers photograph unveil upwards from their own bottom edge
+   - dense content (audience tabs, quote, award): a quiet fade, no travel
+   One easing family, every entrance fires once, reduced motion shows everything at once (main.css, and the JS opts out). */
+:root{--mv-ease:cubic-bezier(.16,1,.3,1);--mv-io:cubic-bezier(.65,0,.35,1)}
+
+/* supporting text: half the travel, longer and softer than before (was 28px over 1.3s) */
+.js [data-reveal]{transform:translateY(14px);transition:opacity 1.2s var(--mv-ease),transform 1.5s var(--mv-ease);transition-delay:var(--d,0s)}
+.js .mv-after[data-reveal].is-in{transition-delay:calc(var(--d,0s) + .35s)}
+
+/* headings: the container stays put, each line rises from behind its own mask */
+.js .mv-split[data-reveal],.js .mv-split[data-intro]{opacity:1!important;transform:none!important;transition:none!important}
+.mv-line{display:block;overflow:hidden;padding:.12em 0 .18em;margin:-.12em 0 -.18em}
+.mv-in{display:inline-block}
+.mv-w{display:inline-block}
+.js .mv-split[data-reveal] .mv-in{transform:translateY(calc(100% + .3em))}
+.js .mv-split[data-reveal].is-in .mv-in{transform:none;transition:transform 1.4s var(--mv-ease);transition-delay:calc(var(--d,0s) + var(--li,0) * .11s)}
+
+/* hero: word by word, a beat apart, then the line below and the buttons follow */
+.js .hero__title.mv-split .mv-w{transform:translateY(calc(100% + .3em))}
+.js .hero__title.mv-split.mv-on .mv-w{transform:none;transition:transform 1.7s var(--mv-ease);transition-delay:calc(.3s + var(--wi,0) * .1s)}
+/* scoped to before .is-ready, so main.css's resting state (transform:none) wins once the intro starts */
+.js .hero:not(.is-ready) [data-intro]:not(.hero__title){transform:translateY(14px)}
+.js .is-ready [data-intro="1"]{transition-delay:.2s}
+.js .is-ready [data-intro="3"]{transition-delay:1s}
+.js .is-ready [data-intro="4"]{transition-delay:1.2s}
+.js .is-ready [data-intro="5"]{transition-delay:1.5s}
+
+/* keylines draw in; the element's own top rule is hidden while its drawn twin animates */
+.mv-kl{border-top-color:transparent!important}
+.mv-kl::after{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:var(--kl);transform:scaleX(0);transform-origin:0 50%;pointer-events:none}
+.mv-kl.is-in::after{transform:none;transition:transform 1.8s var(--mv-io);transition-delay:var(--d,0s)}
+.mv-ready .step+.step::before{transform:scaleY(0);transform-origin:50% 0}
+.mv-ready .step+.step.is-in::before{transform:none;transition:transform 1.8s var(--mv-io);transition-delay:calc(var(--d,0s) + .15s)}
+
+/* illustration tiles unveil upwards, their caption follows */
+.js .scene[data-reveal]{opacity:1;transform:none}
+.mv-ready .scene .pressure-anim{clip-path:inset(100% 0 0 0 round 6px)}
+.mv-ready .scene.is-in .pressure-anim{clip-path:inset(0 0 0 0 round 6px);transition:clip-path 1.6s var(--mv-io);transition-delay:var(--d,0s)}
+.mv-ready .scene .scene__cap{opacity:0;transform:translateY(12px)}
+.mv-ready .scene.is-in .scene__cap{opacity:1;transform:none;transition:opacity 1.2s var(--mv-ease),transform 1.5s var(--mv-ease);transition-delay:calc(var(--d,0s) + .55s)}
+
+/* the suppliers photograph opens out from its centre (not the tiles' upward wipe: no transition twice on a page)
+   and settles from a slight scale; the hover zoom still works after */
+.js .suppliers__media[data-reveal]{opacity:1;transform:none}
+.mv-ready .suppliers__media .suppliers__img{clip-path:inset(9% 7% 9% 7% round 6px)}
+.mv-ready .suppliers__media.is-in .suppliers__img{clip-path:inset(0 0 0 0 round 6px);transition:clip-path 1.7s var(--mv-io)}
+.mv-ready .suppliers__media .suppliers__img img{transform:scale(1.12)}
+.mv-ready .suppliers__media.is-in .suppliers__img img{transform:scale(1.02);transition:transform 2.8s var(--mv-ease)}
+.mv-ready .suppliers__media.is-in:hover .suppliers__img img{transform:scale(1.05);transition:transform 1.6s var(--mv-ease)}
+
+/* dense content: a quiet fade, no travel */
+.js .aud[data-reveal],.js .quote[data-reveal],.js .award[data-reveal]{transform:none}
+
+/* the footer logo: no rise or fade of its own; its Portal turns into place when it scrolls in (brand-v2.css) */
+.js .footer__logo[data-reveal]{opacity:1;transform:none}

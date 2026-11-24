@@ -1,0 +1,45 @@
+/* Brand v2 (proof, Luke 23 Nov).
+   1. Footer: the logo top left of the brand column, as wide as the description's last line (sizing in main-v2.css,
+      .footer__logo). It is the inline SVG rather than an <img> so it can play the same sting as the nav.
+   2. The sting, nav (on load) and footer (on scroll-in). Luke, 23 Nov: "have it twist in a little bit more... then
+      have the letters of invensa cascade in".
+      a. The Portal's two spirals turn into place in opposite directions, from 18 degrees (was 12) and 90% scale, with no
+         optical crossover. Measured, not guessed: at rest the spirals are 4.6 units apart; at 18 degrees each the gap is
+         at its narrowest, about 1 unit (they would meet at about 22), and it widens steadily as they settle. The scale is
+         the same for both about the same centre, so it never brings them closer relative to their size. Expo-out has no
+         overshoot, so they never pass rest. Spiral A (outer right arc + inner left) winds clockwise into place, spiral B
+         (outer left + inner right) anticlockwise, both about the Portal's centre of symmetry (59.44, 68.675).
+      b. The letters of the name rise one after another from an invisible line just under their baseline (the SVG
+         clipPath on .lg__word, 3 units below the lowest glyph), starting a tenth of a second after the Portal, so the
+         name rises while the spirals are still turning (Luke, 23 Nov: "a bit more overlap"; was .32s).
+         Same expo-out as everything else on the page; 70ms between letters; each takes 1.5s.
+      Reduced motion: everything shows at rest (motion-v2.js never adds .is-on, so both guards below matter). */
+.footer__logo.lg{color:var(--purple);aspect-ratio:372.66/137.35} /* aspect-ratio: some Safari versions give an inline svg with height:auto no height */
+
+/* the nav logo is one inline SVG now; its colour follows the nav state (white on the hero, purple once solid) */
+.nav__logo{color:#fff}
+.nav__logo .lg{transition:color .6s var(--ease)}
+.nav.is-solid .nav__logo{color:var(--purple)}
+.nav.is-open .nav__logo{color:#fff}
+.lg{overflow:visible}
+
+/* the sting */
+.lg{--ld:.25s}                                    /* nav: a beat after the page paints, so it reads as the opening */
+.footer__logo{--ld:.15s}
+.lg__s{transform-box:view-box;transform-origin:59.44px 68.675px}
+.js .lg__s{opacity:0}
+.js .lg__s--a{transform:rotate(-18deg) scale(.9)}
+.js .lg__s--b{transform:rotate(18deg) scale(.9)}
+.js .lg.is-on .lg__s,.js .footer__logo.is-in .lg__s{opacity:1;transform:none;
+  transition:transform 2.4s cubic-bezier(.16,1,.3,1) var(--ld),opacity 1.2s cubic-bezier(.16,1,.3,1) var(--ld)}
+.lg__word path{transform-box:view-box;--i:0}
+.js .lg__word path{opacity:0;transform:translateY(56px)} /* 56 units clears even the i (top 43.2) below the mask at 97 */
+.js .lg.is-on .lg__word path,.js .footer__logo.is-in .lg__word path{opacity:1;transform:none;
+  transition:transform 1.5s cubic-bezier(.16,1,.3,1) calc(var(--ld) + .1s + var(--i) * .07s),opacity 1s cubic-bezier(.16,1,.3,1) calc(var(--ld) + .1s + var(--i) * .07s)}
+.lg__word path:nth-child(2){--i:1}
+.lg__word path:nth-child(3){--i:2}
+.lg__word path:nth-child(4){--i:3}
+.lg__word path:nth-child(5){--i:4}
+.lg__word path:nth-child(6){--i:5}
+.lg__word path:nth-child(7){--i:6}
+@media (prefers-reduced-motion:reduce){.js .lg__s,.js .lg__word path{opacity:1;transform:none}}

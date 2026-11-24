@@ -1,0 +1,678 @@
+/* main-v2.css: PROOF copy of assets/css/main.css (v=31) with the type scale and refinement pass (23 Nov). Linked only from explore/hero.html.
+   Merge back into main.css once Luke approves; diff against main.css to see every change. */
+/* Invensa homepage. Potting Shed, Nov 2026.
+   Direction (agreed 23 Nov): Rogo-level restraint. Deep aubergine ground, white page, Smart Purple as the one accent.
+   Newsreader for display, Red Hat Text for everything else. Keylines, not boxes. No shadows, glows or gradients on type. */
+
+:root{
+  /* Colour: one job each */
+  --aubergine:#2A1233;      /* dark ground: hero, Why, contact banner */
+  --aubergine-2:#36193F;    /* hover on dark */
+  --purple:#702F8A;         /* Smart Purple: actions, links, highlights */
+  --purple-deep:#5E2574;    /* Smart Purple hover */
+  --tint:#CDB6D6;           /* Smart Purple 35% (brand tint): small accents on dark */
+  --tint-10:#F1EAF3;        /* Smart Purple 10% (brand tint) */
+  --ink:#1F1823;            /* headlines: off-black with a breath of purple */
+  --text:#494949;           /* brand Text Grey: body */
+  --muted:#6A6470;          /* secondary text, 5.6:1 on white; also the backer logos */
+  --muted-2:#756E7B;        /* inactive tabs only: 4.5:1 on the tint (was #857E8B, 3.6:1: the Awwwards probe, 24 Nov, found the tabs are 22 to 24px from 900 to 1199px, under the large-text size, so 3.6:1 failed AA there) */
+  --line:#E5E0E8;           /* the one keyline colour on light */
+  --line-dark:rgba(255,255,255,.16);
+  --surface:#F7F5F8;        /* tinted off-white band */
+  --white:#FFFFFF;
+  --media-dark:#1A0A20;     /* behind photos on dark grounds while they load (the Why cards and rows) */
+  --on-dark:rgba(255,255,255,.74);
+
+  /* Corners: one slight radius for boxes (media, panels, the dropdown) and, since 23 Nov, buttons and the toast too
+     (Luke: "for buttons let's do rectangles with the same radius as elsewhere on the site"). Full-bleed media stays square. */
+  --radius:6px;
+
+  /* Type */
+  --serif:"Newsreader", "Iowan Old Style", Georgia, serif;
+  --serif-wght:350; /* display weight for every Newsreader setting (Luke 23 Nov: "a very slightly heavier version" than 300); the font loads 200 to 500 */
+  --sans:"Red Hat Text", "Helvetica Neue", Arial, sans-serif;
+  --sans-display:"Red Hat Display", "Red Hat Text", "Helvetica Neue", Arial, sans-serif; /* lead lines under titles, set close */
+
+  /* Type scale: ten styles and nothing else (Luke, 23 Nov: "a standard set of type styles we can use across the site
+     like h1 h2 h3"). Before this the page used twelve serif sizes; the stat figures (128px) outsized the hero (124px).
+     display  the hero headline only, the page's one special moment          Newsreader
+     h2       section titles, the closing banner, the Why words, key figures   Newsreader
+     h3       sub-section titles: audience panels, suppliers, the pull quote   Newsreader
+     h4       small serif: step titles, the How note, audience tabs, footer    Newsreader
+     lead     lines under titles: tile captions, Why promises                  Red Hat Display
+     lede     intro paragraphs: section ledes, the hero line, the banner line  Red Hat Text
+     body     every other paragraph                                            Red Hat Text
+     small    navigation, captions, timeline labels, footer links              Red Hat Text
+     label    labels, audiences, the backers line, the award                   Red Hat Text
+     fine     smallprint and legal                                             Red Hat Text */
+  /* every fluid size stops at its 1440 value, where the grid stops growing (24 Nov: past 1440 the type kept growing
+     inside a 1280 column and broke designed lines, e.g. the suppliers title at 1920); identical at 1440 and below */
+  --fs-display:clamp(56px, 8.4vw, 1440px * .084);
+  --fs-h2:clamp(38px, 4.5vw, 1440px * .045);
+  --fs-h3:clamp(28px, 2.8vw, 1440px * .028);
+  --fs-h4:clamp(22px, 2vw, 28px);
+  --fs-lead:clamp(20px, 1.55vw, 1440px * .0155);
+  --fs-lede:clamp(18px, 1.35vw, 1440px * .0135);
+  --fs-body:17px;
+  --fs-small:15px;
+  --fs-label:14px;
+  --fs-fine:13px;
+
+  /* Grid */
+  --max:1280px;
+  --gutter:clamp(20px, 5.6vw, 80px);
+  --col-gap:clamp(16px, 2vw, 1440px * .02); /* stops at 1440 with everything else: wider screens get the 1440 layout, centred */
+  /* One 12-column grid inside .wrap for every layout from 900px up: repeat(12, minmax(0,1fr)) with --col-gap, blocks
+     placed by column span, never by fr ratios or vw indents (24 Nov audit: 4fr 8fr, 7fr 5fr, a double gap and 6vw
+     indents had put six blocks 5 to 40px off the shared lines). Three-up rows are spans of 4, halves spans of 6. */
+  --section:clamp(104px, 10.4vw, 150px); /* 150 top and bottom from 1440 up (Luke, 23 Nov); phones unchanged at 104. Same-colour neighbours meet at one --section, not two: see .section--joined */
+  --nav-h:76px;
+
+  /* Motion: long, soft landings. One curve for the whole site. */
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-io:cubic-bezier(.65,0,.35,1);
+  --dur:1.1s;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--text);font-family:var(--sans);font-size:var(--fs-body);line-height:1.55;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:normal;text-rendering:optimizeLegibility}
+/* clip, never hidden: hidden breaks sticky and creates a scroll container */
+main,footer{overflow-x:clip}
+img,svg,video,canvas{display:block;max-width:100%}
+h1,h2,h3,p,ul,ol,figure,blockquote,address{margin:0;padding:0}
+ul,ol{list-style:none}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+address{font-style:normal}
+::selection{background:var(--tint);color:var(--ink)}
+:focus-visible{outline:2px solid var(--purple);outline-offset:4px;border-radius:2px}
+[data-theme="dark"] :focus-visible,.nav.is-over-dark :focus-visible,.mmenu :focus-visible{outline-color:var(--white)}
+
+.wrap{width:min(100% - var(--gutter)*2, var(--max));margin-inline:auto}
+.section{padding-block:var(--section)}
+.section--tint{background:var(--surface)}
+/* a section on the same ground as the one above takes the gap once, not twice: 150 at 1440, not 300
+   (Luke, 24 Nov: "when both backgrounds are the same colour it looks like double the vertical space").
+   Today: film > challenge > how, all white. Add it to any future same-colour neighbour. */
+.section--joined{padding-top:0}
+
+.skip{position:absolute;left:16px;top:16px;z-index:100;background:var(--ink);color:#fff;padding:10px 16px;border-radius:var(--radius);text-decoration:none;transform:translateY(-200%);transition:transform .4s var(--ease)}
+.skip:focus{transform:none}
+
+/* Designed line breaks: d = desktop (1100+), t = tablet (700-1099), m = mobile (<700) */
+br.br-d,br.br-t,br.br-m{display:none}
+@media (min-width:1100px){br.br-d{display:inline}}
+@media (min-width:700px) and (max-width:1099.98px){br.br-t{display:inline}}
+@media (max-width:699.98px){br.br-m{display:inline}}
+@media (max-width:359.98px){br.br-xs-off{display:none}}
+
+/* ---------- Type system ---------- */
+.h1,.h2,.h3,.hero__title,.stat__num,.quote blockquote,.footer__tagline,.aud__panel h3,.step__title,.pillar__name{
+  font-family:var(--serif);font-weight:var(--serif-wght);color:var(--ink);font-optical-sizing:auto;
+  font-feature-settings:"kern","liga","lnum";
+}
+/* no width cap: every title has designed breaks per breakpoint, balance handles the rest */
+.h2{font-size:var(--fs-h2);line-height:1.04;letter-spacing:-.022em;text-wrap:balance}
+/* smallest phones: one step down so "Santander CIB and" still fits a line at the 350 display weight (4 lines otherwise) */
+@media (max-width:359.98px){.h2{font-size:36px}}
+.h3{font-size:var(--fs-h3);line-height:1.1;letter-spacing:-.018em;text-wrap:balance}
+/* one phrase in a title can carry Smart Purple: the visitor's own part ("You pull it.", Luke 23 Nov). Once per title,
+   rarely per page, or it stops meaning anything. On the dark bands it takes the brand tint, for contrast */
+.hl{color:var(--purple)}
+[data-theme="dark"] .hl{color:var(--tint)}
+.lede{font-size:var(--fs-lede);line-height:1.5;color:var(--muted);max-width:44ch;text-wrap:balance}
+.label{font-size:var(--fs-label);line-height:1.3;letter-spacing:.01em;color:var(--purple);font-weight:500}
+.smallprint{font-size:var(--fs-fine);line-height:1.55;color:var(--muted);text-wrap:pretty}
+p{text-wrap:pretty}
+/* short copy (hero line, ledes, step and panel text, stat labels, bullets, banner line) is balanced so two- and three-line blocks have even lines;
+   long body copy keeps pretty (Luke, 23 Nov: "make the two lines more even lengths") */
+
+/* ---------- Buttons and links ---------- */
+/* one button size everywhere, the compact one (Luke, 23 Nov: "make all the buttons more like this radius and space around
+   type"; the hero's 52px button had too much space around its copy). 40px tall, 18px either side, 15px type; 44px tall on
+   touch screens (below) */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:40px;padding:0 18px 1px;border-radius:var(--radius);
+  background:var(--purple);color:var(--white);text-decoration:none;font-size:var(--fs-small);font-weight:500;letter-spacing:.005em;white-space:nowrap;
+  transition:background-color .5s var(--ease),color .5s var(--ease),transform .5s var(--ease)}
+.btn:hover{background:var(--purple-deep)}
+.btn:active{transform:scale(.98)}
+.btn--light{background:var(--white);color:var(--aubergine)}
+.btn--light:hover{background:var(--tint-10)}
+/* .btn--sm is now the same as .btn; the class stays in the markup harmlessly */
+
+.tlink{display:inline-block;font-size:var(--fs-small);line-height:24px;letter-spacing:.005em;color:var(--purple);font-weight:500; /* 24px line: the WCAG 2.2 minimum target with a mouse, whatever the body leading */ /* text links and buttons share one control style: small, 500 (was an off-scale 16px) */ text-decoration:underline;text-decoration-thickness:1px;
+  text-underline-offset:6px;text-decoration-color:currentColor;text-decoration-color:color-mix(in srgb, currentColor 40%, transparent);
+  transition:text-decoration-color .5s var(--ease),text-underline-offset .5s var(--ease)}
+.tlink:hover{text-decoration-color:currentColor;text-underline-offset:8px}
+.tlink--light{color:var(--white)}
+
+/* ---------- Nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;height:var(--nav-h);color:var(--white);
+  transition:background-color .6s var(--ease),color .6s var(--ease),transform .7s var(--ease)}
+.nav::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:var(--line);opacity:0;transition:opacity .6s var(--ease)}
+.nav.is-solid{background:rgba(255,255,255,.96);color:var(--ink)}
+@supports (backdrop-filter:blur(1px)){.nav.is-solid{background:rgba(255,255,255,.86);backdrop-filter:saturate(1.4) blur(16px);-webkit-backdrop-filter:saturate(1.4) blur(16px)}}
+.nav.is-solid::after{opacity:1}
+.nav.is-hidden{transform:translateY(-100%)}
+.nav__bar{height:100%;display:flex;align-items:center;gap:32px}
+.nav__logo{position:relative;display:block;width:112px;height:41px;flex:none;margin-left:-4px}
+.logo{position:absolute;inset:0;width:100%;height:100%;transition:opacity .6s var(--ease)}
+.logo--purple{opacity:0}
+.nav.is-solid .logo--white{opacity:0}
+.nav.is-solid .logo--purple{opacity:1}
+.nav__links{margin-left:auto}
+.nav__links>ul{display:flex;align-items:center;gap:clamp(20px,2.4vw,36px)}
+.nav__links a,.nav__drop>button{font-size:var(--fs-small);line-height:1;text-decoration:none;opacity:.82;display:inline-flex;align-items:center;gap:7px;padding:10px 0;
+  transition:opacity .4s var(--ease)}
+.nav__links a:hover,.nav__drop>button:hover,.nav__drop>button[aria-expanded="true"]{opacity:1}
+.chev{width:9px;height:6px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;margin-top:1px;transition:transform .5s var(--ease)}
+.nav__drop{position:relative}
+.nav__drop>button[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.nav__menu{position:absolute;top:calc(100% + 14px);left:-22px;min-width:216px;padding:10px 0;background:var(--white);color:var(--ink);
+  border:1px solid var(--line);border-radius:var(--radius);opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .4s var(--ease),transform .5s var(--ease),visibility 0s linear .4s}
+.nav__drop>button[aria-expanded="true"]+.nav__menu{opacity:1;visibility:visible;transform:none;transition:opacity .4s var(--ease),transform .5s var(--ease),visibility 0s}
+.nav__menu a{display:block;padding:10px 22px;opacity:1;color:var(--text)}
+.nav__menu a:hover{color:var(--purple)}
+.nav__cta{margin-left:8px;background:var(--white);color:var(--aubergine)}
+.nav__cta:hover{background:var(--tint-10)}
+.nav.is-solid .nav__cta{background:var(--purple);color:var(--white)}
+.nav.is-solid .nav__cta:hover{background:var(--purple-deep)}
+
+.nav__toggle{display:none;margin-left:auto;align-items:center;gap:12px;height:44px;font-size:var(--fs-small);font-weight:500}
+.nav__toggle-icon{position:relative;width:20px;height:10px}
+.nav__toggle-icon i{position:absolute;left:0;right:0;top:4.25px;height:1.5px;background:currentColor;border-radius:1px;transition:transform .6s var(--ease)}
+.nav__toggle-icon i:first-child{transform:translateY(-4.25px)}
+.nav__toggle-icon i:last-child{transform:translateY(4.25px)}
+.nav.is-open .nav__toggle-icon i:first-child{transform:rotate(45deg)}
+.nav.is-open .nav__toggle-icon i:last-child{transform:rotate(-45deg)}
+
+.mmenu{position:fixed;inset:0;z-index:-1;background:var(--aubergine);color:var(--white);padding-top:var(--nav-h);overflow-y:auto;overscroll-behavior:contain;
+  opacity:0;transition:opacity .6s var(--ease)}
+.mmenu.is-open{opacity:1}
+.mmenu__inner{min-height:100%;display:flex;flex-direction:column;justify-content:space-between;padding-block:clamp(24px,6vh,56px) max(32px, env(safe-area-inset-bottom))}
+.mmenu__list li{border-top:1px solid var(--line-dark);overflow:hidden}
+.mmenu__list li:last-child{border-bottom:1px solid var(--line-dark)}
+.mmenu__list a{display:block;padding:14px 0 13px;font-family:var(--serif);font-weight:var(--serif-wght);font-size:clamp(26px,7vw,34px);line-height:1.1;letter-spacing:-.015em;text-decoration:none;
+  transform:translateY(105%);transition:transform .9s var(--ease)}
+.mmenu.is-open .mmenu__list a{transform:none}
+.mmenu .btn{align-self:flex-start;margin-top:32px;flex:none}
+@media (max-height:640px){.mmenu__list a{font-size:24px;padding:10px 0 9px}.mmenu__inner{padding-block:16px 24px}}
+.nav.is-open{color:var(--white);background:transparent}
+.nav.is-open::after{opacity:0}
+.nav.is-open .logo--white{opacity:1}
+.nav.is-open .logo--purple{opacity:0}
+
+@media (max-width:1099.98px){
+  .nav__links,.nav__cta{display:none}
+  .nav__toggle{display:inline-flex}
+}
+
+/* ---------- 01 Hero ---------- */
+.hero{position:relative;min-height:max(680px, 100svh);max-height:1080px;display:flex;flex-direction:column;
+  background:var(--aubergine);color:var(--white);isolation:isolate;overflow:clip}
+@supports not (height:100svh){.hero{min-height:max(680px, 100vh)}}
+/* A barely-there lift behind the headline so the ground never reads as flat fill. One colour family only. */
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:radial-gradient(70% 60% at 50% 46%, #36173F 0%, rgba(42,18,51,0) 70%)}
+.hero__field{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero__grain{position:absolute;inset:0;z-index:-1;opacity:.07;pointer-events:none;mix-blend-mode:soft-light;background-size:180px 180px}
+.hero__inner{flex:1;display:flex;align-items:center;justify-content:center;padding-top:var(--nav-h)}
+.hero__copy{text-align:center;display:flex;flex-direction:column;align-items:center;padding-bottom:clamp(8px,4vh,48px)}
+/* .hero__eyebrow: only where there is no film band (option 6 and index.html); with the band, its line titles the film instead */
+.hero__eyebrow{font-size:var(--fs-small);letter-spacing:.01em;color:var(--tint);margin-bottom:clamp(18px,2.6vh,28px)}
+.hero__title{font-size:var(--fs-display);line-height:.96;letter-spacing:-.03em;color:var(--white);font-weight:var(--serif-wght);text-wrap:balance}
+.hero__sub{margin-top:clamp(22px,3.2vh,34px);font-size:var(--fs-lede);line-height:1.5;color:var(--on-dark);max-width:31ch;text-wrap:balance}
+.hero__actions{margin-top:clamp(30px,4.4vh,44px);display:flex;align-items:center;gap:28px}
+.hero__backers{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:22px 26px;border-top:1px solid var(--line-dark)}
+.hero__backers p{font-size:var(--fs-label);line-height:1.4;color:var(--on-dark);text-wrap:balance}
+.backers{display:flex;align-items:center;gap:clamp(22px,2.6vw,36px)}
+.backers li{display:flex;align-items:center;padding-left:clamp(22px,2.6vw,36px);border-left:1px solid var(--line-dark)}
+.backers li:first-child{padding-left:0;border-left:0}
+/* Optically matched: Santander's flame sits higher, so its box is a touch smaller than Pemberton's caps */
+.backers img{max-width:none;flex:none}
+.backers li:first-child img{height:19px;width:auto}
+.backers li:last-child img{height:17px;width:auto}
+@media (max-width:359.98px){
+  .backers{gap:16px}
+  .backers li{padding-left:16px}
+  .backers li:first-child img{height:16px}
+  .backers li:last-child img{height:14px}
+}
+
+@media (max-width:699.98px){
+  .hero{min-height:max(600px, 100svh)}
+  .hero__copy{align-items:flex-start;text-align:left}
+  .hero__title{font-size:clamp(54px, 15.5vw, 76px);line-height:.98}
+  .hero__actions{flex-wrap:wrap;gap:16px 28px}
+  .hero__backers{flex-direction:column;align-items:flex-start;gap:16px;padding-block:20px 24px}
+}
+@media (max-height:700px) and (min-width:700px){
+  .hero__title{font-size:clamp(56px, 7.4vw, 112px)}
+  .hero__eyebrow{margin-bottom:14px}
+}
+
+/* ---------- 01b Film band: Film A at content width, 16:9 at every size, under its title (Luke, 23 Nov). The title was
+   the hero's eyebrow; it takes the h3 style so it reads as this section's title, not a second headline ---------- */
+.film__title{margin-bottom:clamp(24px,3vw,40px)}
+.film__frame{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:clip;background:var(--aubergine)}
+.film__frame video{width:100%;height:100%;object-fit:cover}
+/* options 6 and 7: the film sits on a layer 7% taller top and bottom and drifts inside the frame as the page scrolls.
+   main.js's [data-parallax] (the contact film's) moves it at most 6% of its own height, so 7% of overscan always covers;
+   about 50px of travel at 1440, slower than the page, never a jolt. Reduced motion: still, no drift. */
+.film__media{position:absolute;inset:-7% 0;will-change:transform}
+/* options 6 and 7: the hero slides up to reveal the film band waiting behind it (Luke, 24 Nov: "could the hero banner
+   slide up to reveal the hero film and title behind it"; on 6 too once it was chosen). The band is pulled up under the hero and pinned to the top while
+   the hero scrolls away over it; the spacer after it is the hero's height, so the page keeps its length and nothing
+   jumps when the pin switches on or off. motion-v2.js sets --reveal-h and .is-pinned only when the hero and the band
+   are both at least a screen tall (otherwise the band would peek out under the hero, or a gap would open under it):
+   so laptops, desktops and landscape tablets, not portrait phones or very tall screens. Off with reduced motion. */
+.reveal.is-pinned>.hero{z-index:2}
+.reveal.is-pinned>.film{position:sticky;top:0;z-index:1;margin-top:calc(-1 * var(--reveal-h));background:var(--white)}
+.reveal.is-pinned::after{content:"";display:block;height:var(--reveal-h)}
+
+/* ---------- 02 Challenge: three illustrated scenes (tiles styled in pressure-anims.css) ---------- */
+.scenes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--col-gap);margin-top:clamp(56px,7vw,104px)} /* the one heading-to-content gap (was 48 to 80, the only section off it) */
+/* lead lines under titles: Red Hat Display, set close (Luke, 23 Nov: Red Hat Text at 1.4 felt "tracked out" and loose).
+   Same style on the Why promises. Body copy and ledes stay in Red Hat Text */
+.scene__cap{margin-top:22px;font-family:var(--sans-display);font-weight:400;font-size:var(--fs-lead);line-height:1.24;letter-spacing:-.01em;color:var(--ink);max-width:24ch;text-wrap:balance}
+/* tablet: three across would shrink each drawing (and the words inside it) too far, so each scene becomes a row,
+   drawing at phone size on the left, caption beside it; the same move How it works makes */
+@media (min-width:700px) and (max-width:1099.98px){
+  .scenes{grid-template-columns:1fr;gap:40px}
+  .scene{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);column-gap:var(--col-gap);align-items:center}
+  .scene__cap{margin-top:0}
+}
+@media (max-width:699.98px){
+  .scenes{grid-template-columns:1fr;gap:48px}
+  .scene__cap{margin-top:20px}
+}
+
+/* ---------- 03 How it works ---------- */
+.how .h2{max-width:none}
+/* equal columns; the keyline lives in the gap so every figure is the same size and every title shares a baseline */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--col-gap);margin-top:clamp(56px,7vw,104px)} /* spans of 4, on the same lines as the scenes above (was a double gap, 10 to 19px off) */
+.step{display:flex;flex-direction:column;position:relative}
+.step+.step::before{content:"";position:absolute;top:0;bottom:0;left:calc(var(--col-gap)*-.5);width:1px;background:var(--line)} /* centred in the gutter */
+.step__fig{aspect-ratio:2/1;margin-bottom:clamp(28px,3vw,44px)}
+.step__fig svg{width:100%;height:100%;overflow:visible}
+.step__title{font-size:var(--fs-h4);line-height:1.15;letter-spacing:-.012em;margin-bottom:12px}
+.step p{max-width:30ch;color:var(--text);text-wrap:balance}
+/* the keyline runs the full width like every other rule on the page (it stopped at the text's 40ch and looked orphaned);
+   the words keep their 40ch measure through the right padding */
+.how__note{margin-top:clamp(56px,6.5vw,96px);padding-top:28px;padding-right:max(0px, calc(100% - 40ch));border-top:1px solid var(--line);
+  font-family:var(--serif);font-weight:var(--serif-wght);font-size:var(--fs-h4);line-height:1.3;letter-spacing:-.012em;color:var(--ink);text-wrap:balance} /* h4 as a short serif statement: its own 1.3 leading, the h4 tracking */
+/* tablet: each step becomes a row, diagram left, words right */
+@media (max-width:899.98px){
+  .steps{grid-template-columns:1fr}
+  .step+.step::before{display:none}
+  .step,.step+.step{padding:36px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;column-gap:var(--col-gap);align-items:center}
+  .step:first-child{border-top:0;padding-top:0}
+  .step__fig{grid-row:1 / span 2;margin-bottom:0}
+  .step__title{align-self:end}
+  .step p{align-self:start}
+}
+@media (max-width:599.98px){
+  .step,.step+.step{display:flex;padding:32px 0}
+  .step:first-child{padding-top:0}
+  .step__fig{margin-bottom:28px}
+  .step__title,.step p{align-self:auto} /* the tablet row's end/start alignment pushed the titles to the right edge in the phone column */
+}
+
+/* ---------- 04 Working capital ---------- */
+.capital__grid{display:grid;grid-template-columns:6fr 6fr;gap:var(--col-gap);align-items:start}
+.capital__copy .label{margin-bottom:20px}
+.capital__copy .lede{margin-top:28px}
+.timeline{padding-top:clamp(0px,3.2vw,48px)}
+.timeline__chart{--label:136px;position:relative}
+.timeline__days{position:relative;height:20px;margin-left:var(--label);margin-bottom:22px}
+.timeline__days span{position:absolute;left:calc(var(--x)*100%);transform:translateX(-50%);font-size:var(--fs-fine);color:var(--muted);white-space:nowrap}
+.timeline__days span:first-child{transform:none}
+.timeline__days span:last-child{transform:translateX(-100%)}
+.timeline__row{display:grid;grid-template-columns:var(--label) 1fr;align-items:center;min-height:88px;border-top:1px solid var(--line)}
+.timeline__row:last-child{border-bottom:1px solid var(--line)}
+.timeline__label{font-size:var(--fs-small);color:var(--ink)}
+.timeline__track{position:relative;height:88px}
+/* faint day rules behind each track */
+.timeline__track::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(var(--line),var(--line)) 0 0/1px 100% no-repeat,
+             linear-gradient(var(--line),var(--line)) 50% 0/1px 100% no-repeat,
+             linear-gradient(var(--line),var(--line)) 100% 0/1px 100% no-repeat}
+.tl-bar{position:absolute;top:50%;left:calc(var(--a)*100%);width:calc((var(--b) - var(--a))*100%);transform-origin:left center}
+.tl-bar--gap{height:36px;margin-top:-18px;border-radius:var(--radius);background:var(--tint-10);border-left:1px solid var(--purple);border-right:1px solid var(--purple);display:flex;align-items:center;justify-content:center}
+.tl-bar--gap span{font-size:var(--fs-fine);font-weight:500;color:var(--purple);white-space:nowrap}
+.tl-bar--held{height:1px;margin-top:-.5px;background:var(--purple)}
+.tl-pin{position:absolute;top:50%;left:calc(var(--x)*100%);width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:var(--white);border:1.5px solid var(--ink)}
+.tl-pin--in{background:var(--ink)}
+.tl-pin--ours{background:var(--purple);border-color:var(--purple)}
+.timeline .smallprint{margin-top:22px;max-width:62ch}
+.js .timeline .tl-bar{transform:scaleX(0);transition:transform 1.4s var(--ease-io) .2s}
+.js .timeline .tl-bar span{opacity:0;transition:opacity .8s var(--ease) 1.2s}
+.js .timeline .tl-pin{opacity:0;transform:scale(.4);transition:opacity .6s var(--ease),transform .8s var(--ease)}
+.js .timeline.is-in .tl-bar{transform:none}
+.js .timeline.is-in .tl-bar span{opacity:1}
+.js .timeline.is-in .tl-pin{opacity:1;transform:none}
+.js .timeline.is-in .timeline__row--without .tl-pin{transition-delay:.2s}
+.js .timeline.is-in .timeline__row--without .tl-pin--in{transition-delay:1.5s}
+.js .timeline.is-in .timeline__row--with .tl-pin--ours{transition-delay:.5s}
+.js .timeline.is-in .timeline__row--with .tl-pin--in{transition-delay:1.6s}
+@media (max-width:999.98px){
+  .capital__grid{grid-template-columns:1fr;gap:56px}
+  .timeline{padding-left:0}
+}
+@media (max-width:519.98px){
+  .timeline__chart{--label:0px}
+  .timeline__row{grid-template-columns:1fr;padding-top:16px}
+  .timeline__label{font-size:var(--fs-label);color:var(--muted)}
+  .timeline__track{height:64px}
+  .timeline__days{margin-bottom:14px}
+}
+
+/* ---------- 05 Why Invensa (dark) ---------- */
+.why{background:var(--aubergine);color:var(--white)}
+.why .h2,.why .lede{color:var(--white)}
+.why .lede{color:var(--on-dark)}
+/* The lede opens the band; each word of "Cost. Supply. Trust." heads its own pillar under the keyline,
+   so title, audience and promise read as one unit (Luke, 23 Nov: the words floated above their columns) */
+.why__sub{text-wrap:balance}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--col-gap);margin-top:clamp(56px,7vw,104px)}
+/* reads breadcrumb, title, detail: audience, then the word framed between two keylines, then the promise (Luke, 23 Nov) */
+.pillar{display:flex;flex-direction:column}
+.pillar__for{font-size:var(--fs-label);color:var(--tint);margin-bottom:16px}
+.pillar__name{font-size:var(--fs-h2);line-height:1;letter-spacing:-.024em;color:var(--white);
+  border-block:1px solid var(--line-dark);margin-bottom:clamp(22px,2.2vw,30px);
+  /* optical centring, measured from the glyphs: keyline to cap top = baseline to keyline = .4em.
+     The line box already holds .263em below the baseline, so the bottom padding is the difference */
+  padding-block:.4em .137em}
+.pillar__text{font-family:var(--sans-display);font-weight:400;font-size:var(--fs-lead);line-height:1.24;letter-spacing:-.01em;color:var(--white);max-width:24ch;text-wrap:balance}
+.pillar .tlink{margin-top:22px;align-self:flex-start}
+@media (max-width:699.98px){
+  .pillars{grid-template-columns:1fr;gap:52px}
+}
+
+/* ---------- 06 Who it's for ---------- */
+/* title and lede start level, cap height to cap height, as in the contact banner (Luke, 23 Nov: "in an element like
+   this the left side feels better aligned with the right hand content"); the lede used to sit at the title's foot */
+.who__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--col-gap);align-items:start}
+.who__head .h2{grid-column:1 / span 8;margin-top:calc(var(--fs-lede) * .41 - .058em)} /* 8 columns hold the designed first line from 900 to 1920 */
+.who__head .lede{grid-column:9 / -1;max-width:34ch} /* starts on column 9 (was right-aligned, 29px off) */
+/* desktop: the title column is exactly as wide as its designed first line, so the break holds at every width;
+   a 7fr column was 4px short at 1440 and already too narrow at 1920 */
+.aud{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(6,auto) 1fr;column-gap:var(--col-gap);margin-top:clamp(56px,7vw,104px);position:relative}
+/* out of grid placement on purpose, so the six tabs auto-place into rows 1 to 6 */
+.aud__list{position:absolute;left:0;top:0;bottom:0;width:1px}
+.aud__item{display:contents}
+.aud__tab{grid-column:1 / span 4;display:block;width:100%;text-align:left;padding:18px 0 17px 24px;border-top:1px solid var(--line);
+  font-family:var(--serif);font-weight:var(--serif-wght);font-size:var(--fs-h4);line-height:1.15;letter-spacing:-.012em;color:var(--muted-2); /* 4.5:1 on the tinted band at every size (see the token) */
+  transition:color .6s var(--ease)}
+.aud__tab:hover{color:var(--ink)}
+/* the team you are on is Smart Purple, its name and its panel title, beside the purple marker (Luke, 24 Nov: "the section
+   you are on have the title type and section type as purple"). The same "you are here" state on the phone accordion. */
+.aud__tab[aria-selected="true"]{color:var(--purple)}
+.aud__item:last-child .aud__tab{border-bottom:1px solid var(--line)}
+.aud__marker{position:absolute;left:0;top:0;width:1px;height:var(--mh,0px);background:var(--purple);transform:translateY(var(--my,0px));
+  transition:transform .7s var(--ease);z-index:1}
+.aud__panel{grid-column:6 / -1;grid-row:1 / -1;align-self:start;padding-top:20px} /* starts on column 6 (was 4fr 8fr plus a 6vw indent, 13px off) */
+/* the panel uses all of its columns (Luke, 24 Nov: "this column width feels like it could be wider ... ideally the right
+   column doesn't end lower than the left"). It was capped at 18ch and 46ch inside a 735px column, so titles and
+   paragraphs ran to three lines and the panel ended 47 to 50px below the list. Now: the title up to 13em (one or two
+   lines for every title), the paragraph up to 38em (about 75 characters), the keylines to the grid's right edge, and
+   the spacing fluid like the type, so the tallest of the six panels ends no lower than the list from 900px up (measured
+   at 900, 1024, 1280, 1440 and 1920). A new panel needs the same check: tools/qa/panel-fit.py. */
+.aud__panel h3{color:var(--purple);font-size:var(--fs-h3);line-height:1.1;letter-spacing:-.018em;max-width:13em;text-wrap:balance}
+.aud__panel p{margin-top:clamp(16px,1.53vw,22px);font-size:var(--fs-body);line-height:1.55;max-width:38em;text-wrap:balance}
+.aud__panel ul{margin-top:clamp(24px,2.5vw,36px)}
+.aud__panel li{position:relative;padding:clamp(12px,.97vw,14px) 0 clamp(12px,.97vw,14px) 22px;border-top:1px solid var(--line);color:var(--ink);text-wrap:balance}
+.aud__panel li:last-child{border-bottom:1px solid var(--line)}
+.aud__panel li::before{content:"";position:absolute;left:0;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--purple)}
+/* desktop tabs: inactive panels hidden; transitions on the active one */
+/* inactive panels keep their space (no jump between tabs) but are invisible to everyone, screen readers included */
+.aud.is-tabs .aud__panel[hidden]{display:block;visibility:hidden}
+.aud.is-tabs .aud__panel.is-entering{animation:panelIn .9s var(--ease) both}
+@keyframes panelIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* option 6, pinned (who-scroll.js; Tom via Luke, 24 Nov: "a scroll action so it locks full screen and you scroll through
+   each section before moving on"). The section is one screen plus one step per further team, and its stage sticks to
+   the top while you scroll through them. A step is 60% of a screen: long enough to read a panel, short enough not to
+   drag. The stage's content is centred below the nav's height, so the nav can come back without covering the title. */
+.who.is-pinned{--step-len:60vh;padding-block:0;height:calc(100vh + (var(--steps,6) - 1) * var(--step-len))}
+@supports (height:100svh){.who.is-pinned{--step-len:60svh;height:calc(100svh + (var(--steps,6) - 1) * var(--step-len))}}
+.who.is-pinned .who__stage{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;
+  padding-block:calc(var(--nav-h) + 8px) 32px}
+.who.is-pinned .aud{margin-top:clamp(40px,6.4vh,88px)}
+@media (max-height:760px){.who.is-pinned .who__stage{padding-bottom:16px}.who.is-pinned .aud{margin-top:32px}} /* so a 1280x720 window pins too (was 18px short) */
+/* accordion under 900px */
+@media (max-width:899.98px){
+  .who__head{grid-template-columns:1fr;gap:24px}
+  .who__head .h2,.who__head .lede{grid-column:auto}
+  .who__head .h2{margin-top:0}
+  .who__head .lede{justify-self:start}
+  .aud{display:block}
+  .aud__list{display:none}
+  .aud__item{display:block;border-top:1px solid var(--line)}
+  .aud__item:last-child{border-bottom:1px solid var(--line)}
+  .aud__tab,.aud__item:last-child .aud__tab{border:0;padding:20px 40px 19px 0;position:relative;color:var(--ink)}
+  .aud__tab::after{content:"";position:absolute;right:4px;top:50%;width:12px;height:12px;margin-top:-6px;
+    background:linear-gradient(currentColor,currentColor) center/12px 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 12px no-repeat;
+    transition:transform .6s var(--ease)}
+  .aud__item .aud__tab[aria-expanded="true"]{color:var(--purple)} /* the open team, as the selected tab above */
+  .aud__tab[aria-expanded="true"]::after{transform:rotate(135deg)}
+  .aud__panel{padding:0 0 32px}
+  .aud__panel[hidden]{display:none}
+}
+
+/* ---------- 07 Backing ---------- */
+/* the backers' logos beside the heading that names them, as social proof (Luke, 24 Nov). Official artwork (Santander's
+   SVG from santander.co.uk; Pemberton has no SVG on pembertonam.com, so their 2x PNG) in one light grey, #A5A5A5 (Luke, 24 Nov: first "more of
+   a mid grey than the strong black", then this exact grey), not the partners' red and navy, so Smart Purple stays the page's one accent. Same balance as the hero strip (19:17), a
+   hairline between them, on their own row under the heading at every size: beside it, they squeezed the heading out
+   of its designed two-line break. */
+.backing__logos{display:flex;align-items:flex-end;margin-top:clamp(28px,3.2vw,44px)}
+.backing__logos li{display:flex;align-items:flex-end}
+.backing__logos li+li{margin-left:clamp(24px,2.8vw,40px);padding-left:clamp(24px,2.8vw,40px);border-left:1px solid var(--line);align-self:stretch}
+.backing__logos img{max-width:none;width:auto}
+.backing__logos li:first-child img{height:clamp(22px,1.95vw,28px)}
+.backing__logos li:last-child img{height:clamp(19.7px,1.745vw,25px)}
+/* narrow phones: both logos scale with the screen so the row always fits (24 Nov QA: it ran 5 to 85px past the edge at 280 to 360) */
+@media (max-width:479.98px){
+  .backing__logos li:first-child img{height:min(22px,5.4vw)}
+  .backing__logos li:last-child img{height:min(19.7px,4.83vw)}
+  .backing__logos li+li{margin-left:clamp(14px,4vw,24px);padding-left:clamp(14px,4vw,24px)}
+}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--col-gap);margin-top:clamp(56px,7vw,104px)}
+.stat{border-top:1px solid var(--line);padding-top:22px}
+/* key figures: the h2 size in the accent (Luke, 23 Nov: "these numbers should be smaller so they don't bunch together ... and purple") */
+.stat__num{font-family:var(--serif);font-weight:var(--serif-wght);font-size:var(--fs-h2);line-height:1.04;letter-spacing:-.022em;color:var(--purple);white-space:nowrap}
+.stat__label{margin-top:14px;font-size:var(--fs-body);line-height:1.55;color:var(--muted);max-width:24ch;text-wrap:balance}
+/* the quote starts on the second third, the same line as the second stat */
+.quote{margin-top:clamp(88px,11vw,168px);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--col-gap)}
+.quote blockquote{grid-column:2 / span 2;font-size:var(--fs-h3);line-height:1.1;letter-spacing:-.018em;color:var(--ink);text-wrap:balance}
+/* hang the opening quote mark so the text block aligns to the grid */
+.quote blockquote p{text-indent:-.4em}
+.quote figcaption{grid-column:2 / span 2;margin-top:24px;font-size:var(--fs-small);display:flex;flex-wrap:wrap;gap:4px 10px}
+.quote__name{color:var(--ink)}
+.quote__role{color:var(--muted)}
+.award{margin-top:clamp(72px,8vw,120px);padding-top:22px;border-top:1px solid var(--line);font-size:var(--fs-label);line-height:1.4;color:var(--muted);display:flex;align-items:flex-start;gap:12px}
+/* sits on the first line's x-height, even when the line wraps */
+.award__mark{width:5px;height:5px;border-radius:50%;background:var(--purple);flex:none;margin-top:.62em}
+@media (max-width:699.98px){
+  .stats{grid-template-columns:1fr;gap:0}
+  .stat{padding-block:22px 28px}
+  .quote{grid-template-columns:1fr}
+  .quote blockquote,.quote figcaption{grid-column:1}
+}
+
+/* ---------- 08 Suppliers ---------- */
+.suppliers{padding-block:var(--section)} /* same rhythm as every other band (Luke, 23 Nov) */
+.suppliers__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--col-gap);align-items:center}
+.suppliers__media{grid-column:1 / span 6}
+.suppliers__img{overflow:clip;border-radius:var(--radius);aspect-ratio:4/3;background:var(--line)}
+.suppliers__img img{width:100%;height:100%;object-fit:cover;object-position:85% 50%;transform:scale(1.02);transition:transform 1.6s var(--ease)}
+.suppliers__media:hover .suppliers__img img{transform:scale(1.05)}
+.suppliers__copy{grid-column:8 / -1} /* starts on column 8 (was a 6vw indent, 23px off) */
+.suppliers__copy p{margin-top:24px;font-size:var(--fs-body);line-height:1.55;max-width:40ch;text-wrap:balance}
+.suppliers__copy .tlink{margin-top:30px}
+@media (max-width:899.98px){
+  .suppliers__grid{grid-template-columns:1fr;gap:48px}
+  .suppliers__media,.suppliers__copy{grid-column:auto}
+  .suppliers__img{aspect-ratio:3/2}
+}
+
+/* ---------- 09 Contact banner (dark, reusable) ---------- */
+.cta{background:var(--aubergine);color:var(--white);position:relative;overflow:clip;isolation:isolate}
+/* deeper than the other bands, about 200 top and bottom at 1440, 135 on phones (Luke, 24 Nov: "can we have the cta a
+   little deeper?"): the last word before the footer gets more room, and more of Film B shows behind it */
+.cta{padding-block:calc(var(--section) * 1.33)}
+/* Film B sits behind the banner under a flat aubergine overlay: the footage reads as texture and the type keeps its contrast */
+.cta__film{position:absolute;inset:0;z-index:-1;overflow:clip}
+.cta__media{position:absolute;inset:-8% 0;will-change:transform}
+.cta__media video{width:100%;height:100%;object-fit:cover}
+.cta__film::after{content:"";position:absolute;inset:0;background:rgba(42,18,51,.8)}
+.cta .h2{color:var(--white);max-width:none} /* the h2 style like every other section title (was 80px) */
+/* the title's cap height lines up with the top of "We begin..." (Luke, 23 Nov: "optically aligned with the top of
+   the para"), not with the button at the bottom as before. Both columns start at the top, then the title drops by the
+   difference between the two cap offsets: about .436 of the lede's size above its first capital, against about .058em
+   above the title's (Newsreader's cap height shifts a little with its optical size). Measured level to within a
+   pixel from 900 to 1920. The side's 8px padding-bottom now balances the lede's inset at the top */
+.cta__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--col-gap);align-items:start}
+.cta .h2{grid-column:1 / span 7}
+.cta__side{grid-column:8 / -1} /* starts on column 8 (was 7fr 5fr, 5px off) */
+.cta .h2{margin-top:calc(var(--fs-lede) * .41 - .058em)} /* same constant as the teams heading now both ledes lead at 1.5 */
+.cta__side{display:flex;flex-direction:column;align-items:flex-start;gap:32px;padding-bottom:8px}
+.cta__side p{font-size:var(--fs-lede);line-height:1.5;color:var(--on-dark);max-width:36ch;text-wrap:balance}
+@media (max-width:899.98px){
+  .cta__grid{grid-template-columns:1fr;gap:36px}
+  .cta .h2,.cta__side{grid-column:auto}
+  .cta .h2{margin-top:0}
+}
+
+/* ---------- Footer ---------- */
+.footer{padding-block:clamp(80px,9vw,128px) 40px;background:var(--white)}
+.footer__top{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--col-gap);padding-bottom:clamp(64px,8vw,112px)}
+/* the logo artwork is exactly as wide as the description's last line, "...Asset Management." (Luke, 23 Nov, after it
+   was twice the old size and then a full-width sign-off): its right edge lands on the full stop. --art is the artwork
+   width: 22.777em of the small text (that line measures 340.66px of ink at 15px; the Portal also sits 1px past the
+   text's left edge, the overshoot a round shape needs to look aligned). On phones too narrow for that line it takes the
+   column instead. The SVG has a 10-unit margin either side of its 352.66-unit artwork, hence the two ratios. */
+.footer__logo{--art:min(calc(var(--fs-small) * 22.777), 100% + 1px);width:calc(var(--art) * 372.66 / 352.66);height:auto;
+  margin-left:calc(var(--art) * -10 / 352.66 - 1px);max-width:none} /* its transparent side margins may run into the gutter */
+.footer__tagline{margin-top:clamp(28px,2.8vw,40px);font-size:var(--fs-h4);line-height:1.15;letter-spacing:-.012em}
+.footer__desc{margin-top:14px;font-size:var(--fs-small);color:var(--muted);max-width:36ch}
+.footer__brand{grid-column:1 / span 5}
+.footer__cols{grid-column:7 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--col-gap)} /* three spans of 2: columns 7, 9 and 11 (was 3 thirds of 7fr, 5 to 40px off) */
+.footer__head{font-size:var(--fs-fine);color:var(--muted);margin-bottom:18px}
+.footer__cols li+li{margin-top:4px}
+.footer__cols a{display:inline-block;padding-block:3px;font-size:var(--fs-small);color:var(--ink);text-decoration:none;transition:color .4s var(--ease)}
+.footer__cols a:hover{color:var(--purple)}
+.footer__cols address{font-size:var(--fs-small);color:var(--ink)}
+.footer__base{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;padding-top:24px;border-top:1px solid var(--line)}
+.footer__base .smallprint{max-width:360px} /* about 70 characters at 13px: brand summary says no more than 12 words a line */
+.footer__legal{display:flex;gap:24px;flex:none}
+.footer__legal a{display:inline-block;padding-block:4px;font-size:var(--fs-fine);color:var(--muted);text-decoration:none}
+.footer__legal a:hover{color:var(--purple)}
+@media (max-width:899.98px){
+  .footer__top{grid-template-columns:1fr;gap:56px}
+  .footer__brand,.footer__cols{grid-column:auto}
+}
+@media (max-width:599.98px){
+  .footer__cols{grid-template-columns:1fr 1fr;row-gap:40px}
+  .footer__cols>div:last-child{grid-column:1 / -1}
+  .footer__base{flex-direction:column;gap:20px}
+}
+
+/* ---------- Folding-phone cover screens (under 300px) ----------
+   One step down for display type so the phone line breaks still land on a 240px column.
+   Before this, 280 read "Inventory / on / demand." and the quote left "with" and "us" on lines of their own. */
+@media (max-width:299.98px){
+  .hero__title{font-size:48px}
+  .h2{font-size:31px}
+  .quote blockquote{font-size:26px}
+  .how__note{font-size:20px}
+}
+
+/* ---------- Precision Points (SVG) ---------- */
+.pp-dot{fill:#D9D2DE}
+.pp-fill{fill:var(--purple)}
+.pp-ring{fill:none;stroke:var(--purple);stroke-width:1.2}
+.pp-head{fill:var(--purple)}
+.pp-frame{fill:none;stroke:var(--purple);stroke-width:1.2}
+.pp-wall{stroke:var(--ink);stroke-width:1.2}
+.step__fig[data-step="buy"]{--base:0s}
+.step__fig[data-step="hold"]{--base:1.5s}
+.step__fig[data-step="pull"]{--base:2.6s}
+.js .pp-line{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dl,1.3s) var(--ease-io);transition-delay:calc(var(--base,0s) + var(--d,0s))}
+.js .pp-head,.js .pp-in{opacity:0;transform:scale(.3);transform-box:fill-box;transform-origin:center;
+  transition:opacity .7s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--base,0s) + var(--d,0s))}
+.js .pp-out{transform-box:fill-box;transform-origin:center;transition:opacity .6s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--base,0s) + var(--d,0s))}
+.js .pp-frame,.js .pp-wall{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.4s var(--ease-io);transition-delay:calc(var(--base,0s) + var(--d,0s))}
+.is-in .pp-line,.is-in .pp-frame,.is-in .pp-wall{stroke-dashoffset:0}
+.is-in .pp-head,.is-in .pp-in{opacity:1;transform:none}
+.is-in .pp-out{opacity:0;transform:scale(.3)}
+html:not(.js) .pp-out{opacity:0}
+
+/* ---------- Reveal ---------- */
+.js [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity var(--dur) var(--ease),transform 1.3s var(--ease);transition-delay:var(--d,0s)}
+.js [data-reveal].is-in{opacity:1;transform:none}
+/* Hero intro: one sequence, once */
+.js [data-intro]{opacity:0;transform:translateY(22px)}
+.js .is-ready [data-intro]{opacity:1;transform:none;transition:opacity 1.4s var(--ease),transform 1.6s var(--ease)}
+.js .is-ready [data-intro="1"]{transition-delay:.35s}
+.js .is-ready [data-intro="2"]{transition-delay:.5s}
+.js .is-ready [data-intro="3"]{transition-delay:.75s}
+.js .is-ready [data-intro="4"]{transition-delay:.9s}
+.js .is-ready [data-intro="5"]{transition-delay:1.15s}
+
+/* ---------- Proof toast ---------- */
+.toast{position:fixed;left:50%;bottom:max(24px, env(safe-area-inset-bottom));z-index:60;transform:translate(-50%,12px);opacity:0;
+  background:var(--ink);color:var(--white);font-size:var(--fs-label);padding:12px 18px;border-radius:var(--radius);white-space:nowrap;
+  transition:opacity .5s var(--ease),transform .6s var(--ease)}
+.toast.is-on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- Cursor (fine pointers only) ---------- */
+.cursor{display:none}
+@media (hover:hover) and (pointer:fine){
+  .has-cursor,.has-cursor a,.has-cursor button{cursor:none}
+  .has-cursor .cursor{display:block;position:fixed;left:0;top:0;z-index:90;pointer-events:none;mix-blend-mode:normal}
+  .cursor__dot{position:absolute;left:0;top:0;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:var(--purple);
+    transform:scale(.2273);transition:transform .5s var(--ease),background-color .4s var(--ease),opacity .3s}
+  .cursor.is-dark .cursor__dot{background:var(--tint)}
+  /* over anything clickable it opens up and inverts what is beneath it. Invert lightness but keep the hue,
+     so aubergine turns pale lavender and white turns ink (a plain difference blend turns purple green). */
+  .cursor.is-link .cursor__dot{transform:none;background:transparent;
+    -webkit-backdrop-filter:invert(1) hue-rotate(180deg);backdrop-filter:invert(1) hue-rotate(180deg)}
+  @supports not ((backdrop-filter:invert(1)) or (-webkit-backdrop-filter:invert(1))){
+    .cursor.is-link{mix-blend-mode:difference}
+    .cursor.is-link .cursor__dot{background:#fff}
+  }
+  .cursor.is-hidden .cursor__dot{opacity:0}
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;transition-delay:0s !important;scroll-behavior:auto !important}
+  .js [data-reveal],.js [data-intro]{opacity:1;transform:none}
+  .cta__media{inset:0}
+}
+
+/* visually hidden, still read by screen readers */
+.vh{position:absolute !important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+
+/* keep compound words whole across line breaks */
+.nw{white-space:nowrap}
+
+/* touch screens: grow hit areas to 44px (Apple 44pt, Material 48dp) without moving anything */
+@media (pointer:coarse){
+  .tlink{position:relative}
+  .tlink::after{content:"";position:absolute;left:-6px;right:-6px;top:50%;height:44px;margin-top:-22px}
+  /* stacked footer links: real 44px rows (expanded hit areas would overlap their neighbours) */
+  .footer__cols li+li{margin-top:0}
+  .footer__cols a{padding-block:10px;min-height:44px} /* a fixed 44px row, not padding plus the body leading */
+  .footer__head{margin-bottom:8px}
+  .footer__legal a{position:relative}
+  .footer__legal a::after{content:"";position:absolute;left:-6px;right:-6px;top:50%;height:44px;margin-top:-22px}
+  .nav__links a,.nav__drop>button{min-height:44px}
+  .btn{height:44px}
+  .nav__logo{height:44px}
+  .nav__logo .logo{top:1.5px;height:41px}
+}
