@@ -266,11 +266,16 @@ p{text-wrap:pretty}
 /* options 6 and 7: the hero slides up to reveal the film band waiting behind it (Luke, 24 Nov: "could the hero banner
    slide up to reveal the hero film and title behind it"; on 6 too once it was chosen). The band is pulled up under the hero and pinned to the top while
    the hero scrolls away over it; the spacer after it is the hero's height, so the page keeps its length and nothing
-   jumps when the pin switches on or off. motion-v2.js sets --reveal-h and .is-pinned only when the hero and the band
-   are both at least a screen tall (otherwise the band would peek out under the hero, or a gap would open under it):
-   so laptops, desktops and landscape tablets, not portrait phones or very tall screens. Off with reduced motion. */
+   jumps when the pin switches on. motion-v2.js sets --reveal-h and .is-pinned whenever the band is at least 70% of a
+   screen tall: laptops, desktops, big monitors and landscape tablets, not portrait phones or tablets (where a
+   screen-tall band would be mostly empty). While pinned, the hero fills the screen (no 1080px cap in the stack) and
+   the band is stretched to fill it too, its title and film centred, so nothing peeks below the hero and no gap opens
+   under the band at any window height. It used to need both to be a screen tall already, which switched it off on
+   tall monitors (Tom, 24 Nov: "just scrolls for me"). Off with reduced motion. */
+.reveal>.hero{max-height:none}
 .reveal.is-pinned>.hero{z-index:2}
-.reveal.is-pinned>.film{position:sticky;top:0;z-index:1;margin-top:calc(-1 * var(--reveal-h));background:var(--white)}
+.reveal.is-pinned>.film{position:sticky;top:0;z-index:1;margin-top:calc(-1 * var(--reveal-h));background:var(--white);
+  min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center}
 .reveal.is-pinned::after{content:"";display:block;height:var(--reveal-h)}
 
 /* ---------- 02 Challenge: three illustrated scenes (tiles styled in pressure-anims.css) ---------- */

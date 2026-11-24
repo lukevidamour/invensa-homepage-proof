@@ -11,21 +11,57 @@
   var navLogo = document.querySelector('.nav__logo .lg');
   if (navLogo) requestAnimationFrame(function () { requestAnimationFrame(function () { navLogo.classList.add('is-on'); }); });
 
-  // options 6 and 7: the hero slides up to reveal the film band pinned behind it (main-v2.css .reveal). Pinned only when the
-  // hero and the band are both at least a screen tall, so nothing peeks below the hero and no gap opens under the band.
-  // The page is the same length either way, so re-checking on resize never moves the scroll position.
+  // options 6 and 7: the hero slides up to reveal the film band pinned behind it (main-v2.css .reveal). On whenever the
+  // band is at least 70% of a screen tall; while on, the hero and the band both fill the screen (main-v2.css), so it
+  // works at any window height. It used to need both to be a screen tall already, which switched it off on tall
+  // monitors (Tom, 24 Nov: "just scrolls for me").
   var stack = document.querySelector('[data-reveal-stack]');
+  var pin = function () {};
   if (stack) {
     var sHero = stack.querySelector('.hero'), sFilm = stack.querySelector('.film');
-    var pin = function () {
+    pin = function () {
       stack.classList.remove('is-pinned');
-      var vh = window.innerHeight, H = sHero.offsetHeight, F = sFilm.offsetHeight;
-      if (H >= vh - 1 && F >= vh - 1) { stack.style.setProperty('--reveal-h', H + 'px'); stack.classList.add('is-pinned'); }
+      if (sFilm.offsetHeight >= window.innerHeight * .7) {
+        stack.classList.add('is-pinned');
+        stack.style.setProperty('--reveal-h', sHero.offsetHeight + 'px');
+      }
     };
     pin();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(pin);
-    var pt; addEventListener('resize', function () { clearTimeout(pt); pt = setTimeout(pin, 150); });
   }
+
+  // the hero's words leave before they reach the nav, which stays see-through over the hero: they drift up at three
+  // quarters of the page's speed and fade out by the time their top would meet the nav's bottom edge, so they never
+  // pass under its links (Tom's screenshot, 24 Nov). The backers line fades the same way as it nears the nav.
+  // Transform and opacity only; nothing is set at the top of the page, so the intro plays untouched.
+  var hero = document.querySelector('.hero'), hCopy = hero && hero.querySelector('.hero__copy'), hBack = hero && hero.querySelector('.hero__backers');
+  var measureExit = function () {};
+  if (hero && hCopy) {
+    var navEl = document.querySelector('.nav'), ends = { copy: 1, back: 1, hero: 1 }, ticking = false;
+    var smooth = function (x) { x = x < 0 ? 0 : x > 1 ? 1 : x; return x * x * (3 - 2 * x); };
+    var setOp = function (el, v) { el.style.opacity = v >= .999 ? '' : v.toFixed(3); };
+    var exit = function () {
+      ticking = false;
+      var y = window.scrollY;
+      if (y > ends.hero + 50) return;                                  // long gone: leave it as it is
+      hCopy.style.transform = y > 0 ? 'translate3d(0,' + (y * .25).toFixed(1) + 'px,0)' : '';
+      setOp(hCopy, 1 - smooth((y - ends.copy * .3) / (ends.copy * .7)));
+      if (hBack) setOp(hBack, 1 - smooth((y - ends.back + 72) / 72));
+    };
+    measureExit = function () {
+      var y = window.scrollY, nh = navEl ? navEl.offsetHeight : 76;
+      hCopy.style.transform = '';
+      ends.copy = Math.max(60, (hCopy.getBoundingClientRect().top + y - nh - 8) / .75);
+      ends.back = hBack ? Math.max(80, hBack.getBoundingClientRect().top + y - nh - 8) : 1e9;
+      ends.hero = hero.offsetHeight;
+      exit();
+    };
+    addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(exit); } }, { passive: true });
+    measureExit();
+  }
+
+  var relayout = function () { pin(); measureExit(); };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+  var pt; addEventListener('resize', function () { clearTimeout(pt); pt = setTimeout(relayout, 150); });
 
   // wrap each word in a span; an inline element that touches the word before it (the hero's purple full stop)
   // joins that word, so it never gets a space or a line of its own
